@@ -15,7 +15,7 @@ namespace Mooshak26.Controllers
 {
     public class LinksController : Controller
     {
-       // private ApplicationDbContext db = new ApplicationDbContext();
+    
         private LinkService _service = new LinkService();
        
 
@@ -127,7 +127,7 @@ namespace Mooshak26.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                //db.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -1,4 +1,5 @@
 ﻿using Mooshak26.Models;
+using Mooshak26.Models.Entities;
 using Mooshak26.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace Mooshak26.Services
             //TODO: 
             return null;
         }
+      //  public List<Assignment> GetAssignments
 
         public AssignmentViewModel GetAssignmentByID(int assignmentID)
         {

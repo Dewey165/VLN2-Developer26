@@ -10,16 +10,33 @@ namespace Mooshak26.Services
     public class CourseService
     {
         private ApplicationDbContext _db;
+        private UserService _userService;
+    
 
         public CourseService()
         {
             _db = new ApplicationDbContext();
+            _userService = new UserService();
         }
 
         public List<Course> GetCourses()
         {
             return _db.courses.ToList();
         }
+        /*
+        public List<Course> GetCoursesByUserID(int id)
+        {
+            var list = _db.Links
+                .Where(x => x.userID == id)
+                .Select(x => x.courseID).ToList();
+
+            foreach (int i in list)
+            {
+                
+            }
+            return list;
+        }
+        */
 
         public Course CourseDetails(int? id)
         {
