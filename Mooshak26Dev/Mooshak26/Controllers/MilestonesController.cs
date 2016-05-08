@@ -12,94 +12,80 @@ using Mooshak26.Services;
 
 namespace Mooshak26.Controllers
 {
-    public class AssignmentsController : Controller
+    public class MilestonesController : Controller
     {
-       
-        private AssignmentService _service = new AssignmentService();
+        private MilestoneService _service = new MilestoneService();
 
-        // GET: Assignments
+        // GET: Milestones
         public ActionResult Index(int id)
         {
-            return View(_service.GetAssignmentsInCourse(id));
+            return View(_service.GetMilestonesByAssignmentID(id));
         }
 
-        // GET: Assignments/Details/5
-        
+        // GET: Milestones/Details/5
         public ActionResult Details(int id)
         {
-            return View(_service.GetAssignmentDetails(id));
+            return View(_service.GetMilestoneDetails(id));
         }
 
-        // GET: Assignments/Create
-        
+        // GET: Milestones/Create
         public ActionResult Create()
         {
-            ViewBag.Courses = _service.GetUsersCoursesTitles();
             return View();
         }
 
-        // POST: Assignments/Create
+        // POST: Milestones/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[Authorize(Roles = "Teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "assignmentID,courseID,title,description,totalGrade,timeSubmitted,dueDate")] Assignment assignment)
+        public ActionResult Create([Bind(Include = "id,assignmentID,title,description,grade")] Milestone milestone)
         {
             if (ModelState.IsValid)
             {
-                if(_service.CreateAssignment(assignment))
+                if(_service.CreateMilestone(milestone))
                 {
-                    return RedirectToAction("Index", new { id = assignment.courseID });
+                    return RedirectToAction("Index", new { id = milestone.assignmentID });
                 }
             }
-            return View(assignment);
-        }
-        
-        // GET: Assignments/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View(_service.GetAssignmentDetails(id));
+            return View(milestone);
         }
 
-        // POST: Assignments/Edit/5
+        // GET: Milestones/Edit/5
+        public ActionResult Edit(int id)
+        {
+            return View(_service.GetMilestoneDetails(id));
+        }
+
+        // POST: Milestones/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[Authorize(Roles = "Teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "assignmentID,courseID,title,description,totalGrade,timeSubmitted,dueDate")] Assignment assignment)
+        public ActionResult Edit([Bind(Include = "id,assignmentID,title,description,grade")] Milestone milestone)
         {
             if (ModelState.IsValid)
             {
-                if(_service.EditAssignment(assignment))
+                if(_service.EditMilestone(milestone))
                 {
                     return RedirectToAction("Index");
                 }
             }
-            return View(assignment);
+            return View(milestone);
         }
 
-        // GET: Assignments/Delete/5
-        //[Authorize(Roles = "Teacher")]
+        // GET: Milestones/Delete/5
         public ActionResult Delete(int id)
         {
-
-            Assignment assignment = _service.GetAssignmentDetails(id);
-            if (assignment == null)
-            {
-                return HttpNotFound();
-            }
-            return View(assignment);
+            return View(_service.GetMilestoneDetails(id));
         }
 
-        // POST: Assignments/Delete/5
-       // [Authorize(Roles = "Teacher")]
+        // POST: Milestones/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            _service.DeleteAssignment(id);
+            _service.DeleteMilestone(id);
             return RedirectToAction("Index");
         }
 
@@ -107,7 +93,7 @@ namespace Mooshak26.Controllers
         {
             if (disposing)
             {
-               // db.Dispose();
+                //db.Dispose();
             }
             base.Dispose(disposing);
         }

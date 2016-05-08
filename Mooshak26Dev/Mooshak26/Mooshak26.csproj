@@ -201,6 +201,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LinksController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MilestonesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -224,6 +225,7 @@
     <Compile Include="Services\CourseService.cs" />
     <Compile Include="Services\DeleteService.cs" />
     <Compile Include="Services\LinkService.cs" />
+    <Compile Include="Services\MilestoneService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -307,6 +309,11 @@
     <Content Include="Views\Links\Details.cshtml" />
     <Content Include="Views\Links\Edit.cshtml" />
     <Content Include="Views\Links\Index.cshtml" />
+    <Content Include="Views\Milestones\Create.cshtml" />
+    <Content Include="Views\Milestones\Delete.cshtml" />
+    <Content Include="Views\Milestones\Details.cshtml" />
+    <Content Include="Views\Milestones\Edit.cshtml" />
+    <Content Include="Views\Milestones\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

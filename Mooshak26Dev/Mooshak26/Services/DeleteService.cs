@@ -10,12 +10,13 @@ namespace Mooshak26.Services
     {
         private ApplicationDbContext _db;
         private LinkService _linkService;
-        
+        private MilestoneService _milestoneService;
 
         public DeleteService()
         {
             _db = new ApplicationDbContext();
             _linkService = new LinkService();
+            _milestoneService = new MilestoneService();
         }
         public void DeleteLinks(int userID)
         {
@@ -23,6 +24,15 @@ namespace Mooshak26.Services
             foreach (var i in linkList)
             {
                 _linkService.DeleteLink(i);
+            }
+        }
+        public void DeleteMilestones(int assignmentID)
+        {
+            _milestoneService = new MilestoneService();
+            var milestones = _milestoneService.GetMilestonesByAssignmentID(assignmentID);
+            foreach (var i in milestones)
+            {
+                _milestoneService.DeleteMilestone(i.id);
             }
         }
     }

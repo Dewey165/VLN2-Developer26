@@ -7,7 +7,7 @@
 <h2>Assignments in course</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New Assignment", "Create")
 </p>
 <table class="table">
     <tr>
@@ -50,6 +50,7 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
             @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("See Milestones", "Index", "Milestones", new { id = item.id }, null) |
             @Html.ActionLink("Delete", "Delete", new { id=item.id })
         </td>
     </tr>
