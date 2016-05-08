@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Mooshak26.Models.Entities.Solution>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.courseID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.assignID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.milestoneID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.input)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.output)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.courseID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.assignID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.milestoneID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.input)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.output)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.solutionID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.solutionID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.solutionID })
+        </td>
+    </tr>
+}
+
+</table>

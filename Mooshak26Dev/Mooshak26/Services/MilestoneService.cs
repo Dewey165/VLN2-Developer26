@@ -5,12 +5,14 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Mooshak26.Services
 {
     public class MilestoneService
     {
         private ApplicationDbContext _db;
+        private AssignmentService _assignmentService;
 
         public MilestoneService()
         {
@@ -32,7 +34,32 @@ namespace Mooshak26.Services
             _db.SaveChanges();
             return true;
         }
+        public int GetUserID()
+        {
+            var userName = HttpContext.Current.User.Identity.Name;
+            var userID = _db.MyUsers.SingleOrDefault
+               (x => x.userName == userName).id;
+
+            return userID;
+        }
      
+        public SelectList GetUsersAssignmentTitles(int assignmentID)
+        {
+            var userId = GetUserID();
+            _assignmentService = new AssignmentService();
+
+            var courseID = _db.Assignments
+                .SingleOrDefault(x => x.id == assignmentID)
+                .courseID;
+            var courseAssignments = _db.Assignments
+                .Where(x => x.courseID == courseID).ToList();
+            var list = new SelectList(
+                courseAssignments.ToList(), "id", "title");
+
+            return list;
+
+
+        }
         public Boolean EditMilestone(Milestone milestone)
         {
             _db.Entry(milestone).State = EntityState.Modified;

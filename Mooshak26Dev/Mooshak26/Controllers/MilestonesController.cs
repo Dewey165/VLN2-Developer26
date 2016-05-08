@@ -29,8 +29,9 @@ namespace Mooshak26.Controllers
         }
 
         // GET: Milestones/Create
-        public ActionResult Create()
+        public ActionResult Create(int assignmentID)
         {
+            ViewBag.Assignments = _service.GetUsersAssignmentTitles(assignmentID);
             return View();
         }
 

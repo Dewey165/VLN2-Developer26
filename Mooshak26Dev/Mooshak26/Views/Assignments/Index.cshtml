@@ -51,6 +51,7 @@
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
             @Html.ActionLink("Details", "Details", new { id=item.id }) |
             @Html.ActionLink("See Milestones", "Index", "Milestones", new { id = item.id }, null) |
+            @Html.ActionLink("Create Milestone", "Create", "Milestones", new { assignmentID = item.id }, null) |
             @Html.ActionLink("Delete", "Delete", new { id=item.id })
         </td>
     </tr>
