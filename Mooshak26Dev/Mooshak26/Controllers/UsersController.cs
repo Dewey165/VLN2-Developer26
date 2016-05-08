@@ -20,7 +20,7 @@ namespace Mooshak26.Controllers
     {
         private ApplicationUserManager _userManager;
         private UserService _service = new UserService();
-        
+
 
         /// <summary>
         /// When creating a new user to AspNetUsers we need this for that..
@@ -62,7 +62,7 @@ namespace Mooshak26.Controllers
         }
 
         // GET: Usersss/Create
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.Roles = _service.GetRoles();
@@ -79,7 +79,7 @@ namespace Mooshak26.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(_service.CreateUser(user))
+                if (_service.CreateUser(user))
                 {
                     var newUser = new ApplicationUser
                     {
@@ -88,11 +88,11 @@ namespace Mooshak26.Controllers
                     };
                     //Create the user in AspNetUsers and the role...
                     var createNewUser = await UserManager.CreateAsync(newUser, "Abc123!");
-                    if(createNewUser.Succeeded)
+                    if (createNewUser.Succeeded)
                     {
                         UserManager.AddToRole(newUser.Id, user.role);
                     }
-                   
+
                 }
                 return RedirectToAction("Index");
             }
@@ -145,10 +145,10 @@ namespace Mooshak26.Controllers
                 updatedUser.Email = user.email;
                 await UserManager.UpdateAsync(updatedUser);
                 */
-                _service.EditUser(user);
+                //_service.EditUser(user);
                 return RedirectToAction("Index");
-           }
-            
+            }
+
             return View(user);
         }
 
@@ -161,6 +161,7 @@ namespace Mooshak26.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             User user = _service.GetUserDetails(id);
+
             if (user == null)
             {
                 return HttpNotFound();
@@ -172,10 +173,17 @@ namespace Mooshak26.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            if(_service.DeleteUser(id))
+            User user = _service.GetUserDetails(id);
+      
+            if (_service.DeleteUser(id))
             {
+                
+                //Delete the user from the AspNetUsers
+                var deleteUser = _service.getUser(user.userName);
+                await UserManager.DeleteAsync(deleteUser);
+
                 return RedirectToAction("Index");
             }
             return HttpNotFound();

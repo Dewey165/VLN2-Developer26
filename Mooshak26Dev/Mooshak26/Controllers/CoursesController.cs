@@ -14,18 +14,22 @@ namespace Mooshak26.Controllers
 {
     public class CoursesController : Controller
     {
-       // private ApplicationDbContext db = new ApplicationDbContext();
+        // private ApplicationDbContext db = new ApplicationDbContext();
         private CourseService _service = new CourseService();
+       // private AssignmentsService _assignmentService = new AssignmentsService();
 
         // GET: Courses
         public ActionResult Index()
         {
-            return View(_service.GetCourses());
+
+            var userID = _service.GetUserID();
+            return View(_service.GetCoursesByUserID(userID));
         }
 
         // GET: Courses/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -37,9 +41,16 @@ namespace Mooshak26.Controllers
                 return HttpNotFound();
             }
             return View(course);
+            /* 
+            //Get assignments for each course in Course Details..
+            var assignments = _assignmentService.GetAssignmentsInCourse(id);
+            return View(assignments);
+            */
+
         }
 
         // GET: Courses/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -48,6 +59,7 @@ namespace Mooshak26.Controllers
         // POST: Courses/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,title,description")] Course course)
@@ -63,6 +75,7 @@ namespace Mooshak26.Controllers
         }
 
         // GET: Courses/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -80,6 +93,7 @@ namespace Mooshak26.Controllers
         // POST: Courses/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,title,description")] Course course)
@@ -95,6 +109,7 @@ namespace Mooshak26.Controllers
         }
 
         // GET: Courses/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -110,6 +125,7 @@ namespace Mooshak26.Controllers
         }
 
         // POST: Courses/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

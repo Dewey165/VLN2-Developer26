@@ -18,7 +18,7 @@ namespace Mooshak26.Models.Entities
         /// description does not need to explain..
         /// grade is what precentage this milestone is to the whole assignment.
         /// </summary>
-        public int milestoneID { get; set; }
+        public int id { get; set; }
         public int assignmentID { get; set; }
         public string title { get; set; }
         public string description { get; set; }

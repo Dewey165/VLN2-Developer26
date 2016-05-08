@@ -6,21 +6,30 @@ using System.Linq;
 using System.Data.Entity;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using System.Security.Principal;
+using System.Web;
 
 namespace Mooshak26.Services
 {
     public class UserService
     {
         private ApplicationDbContext _db;
+        private DeleteService _deleteService;
 
         public UserService()
         {
             _db = new ApplicationDbContext();
+            
         }
+
         //Get all users
         public List<User> GetUsers()
         {
             return _db.MyUsers.ToList();
+        }
+        public string GetUserName()
+        {
+            return HttpContext.Current.User.Identity.Name;
         }
 
         public User GetUserDetails(int? id)
@@ -63,11 +72,25 @@ namespace Mooshak26.Services
             _db.SaveChanges();
             return true;
         }
-
-        public Boolean DeleteUser(int? id)
+        public ApplicationUser getUser(string userName)
         {
+            return _db.Users.SingleOrDefault(x => x.UserName == userName);
+        }
+
+        public Boolean DeleteUser(int id)
+        {
+            //Deleting the user from our users table...
             User user = GetUserDetails(id);
             _db.MyUsers.Remove(user);
+            //Deleting the user from the AspNet table...
+
+
+            //Deleting every connection he has to the Link table..
+            //Can't do it through LinkService since it has a connection to UserService...
+            _deleteService = new DeleteService();
+            _deleteService.DeleteLinks(id);
+            
+            //Finally save all the changes...
             _db.SaveChanges();
             return true;
         }

@@ -222,6 +222,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AssignmentsService.cs" />
     <Compile Include="Services\CourseService.cs" />
+    <Compile Include="Services\DeleteService.cs" />
     <Compile Include="Services\LinkService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />

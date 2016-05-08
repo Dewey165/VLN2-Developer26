@@ -17,13 +17,28 @@ namespace Mooshak26.Services
             _db = new ApplicationDbContext();
         }
 
-        public List<AssignmentViewModel> GetAssignmentsInCourse(int courseID)
+        public List<Assignment> GetAssignmentsInCourse(int courseID)
         {
-            //TODO: 
-            return null;
+            var list = _db.Assignments
+                .Where(x => x.courseID == courseID).ToList();
+            return list;
         }
-      //  public List<Assignment> GetAssignments
 
+        public List<Milestone> GetMilestonesByAssignmentID(int assignmentID)
+        {
+            var milestones = _db.Milestones
+                .Where(x => x.assignmentID == assignmentID).ToList();
+            return milestones;
+        }
+        public void CreateMilesstone(int assignmentID)
+        {
+         //ToDo   
+        }
+
+        public void RateAssignment(int assignmentID)
+        {
+            //ToDo 
+        }
         public AssignmentViewModel GetAssignmentByID(int assignmentID)
         {
             //TODO

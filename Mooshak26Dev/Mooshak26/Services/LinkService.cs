@@ -16,16 +16,19 @@ namespace Mooshak26.Services
         private ApplicationDbContext _db;
         private CourseService _CourseService;
         private UserService _UserService;
+
         public LinkService()
         {
             _db = new ApplicationDbContext();
             _CourseService = new CourseService();
             _UserService = new UserService();
         }
+
         public List<Link> GetLinks()
         {
             return _db.Links.ToList();
         }
+
         public Link GetLinkDetails(int? id)
         {
             return _db.Links.Find(id);
@@ -42,6 +45,7 @@ namespace Mooshak26.Services
             _db.SaveChanges();
             return true;
         }
+
         public Boolean EditLink(Link link)
         {
             _db.Entry(link).State = EntityState.Modified;
@@ -54,6 +58,14 @@ namespace Mooshak26.Services
             _db.Links.Remove(link);
             _db.SaveChanges();
             return true;
+        }
+        // Returns the Id for every link the user is connected to...
+        public List<int> userLinks(int userID)
+        {
+            var list = _db.Links
+                .Where(x => x.userID == userID)
+                .Select(x => x.id).ToList();
+            return list;
         }
 
         public SelectList GetAllCourseTitles()

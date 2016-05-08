@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Web.Mvc;
 
 namespace Mooshak26.Services
 {
@@ -23,20 +24,34 @@ namespace Mooshak26.Services
         {
             return _db.courses.ToList();
         }
-        /*
+
+        public int GetUserID()
+        {
+            var userName = _userService.GetUserName();
+            var userID = _db.MyUsers.SingleOrDefault(x => x.userName == userName).id;
+            return userID;
+        }
+        
+
         public List<Course> GetCoursesByUserID(int id)
         {
+            if (_userService.GetRole(id) == "Admin")
+            {
+                return GetCourses();
+            }
+
             var list = _db.Links
                 .Where(x => x.userID == id)
                 .Select(x => x.courseID).ToList();
-
+            var courseList = new List<Course>();
             foreach (int i in list)
             {
-                
+                var course =_db.courses.SingleOrDefault(x => x.id == i);
+                courseList.Add(course);
             }
-            return list;
+            return courseList;
         }
-        */
+        
 
         public Course CourseDetails(int? id)
         {
@@ -57,28 +72,19 @@ namespace Mooshak26.Services
             _db.SaveChanges();
             return true;
         }
+        
         public bool EditCourse(Course course)
         {
             _db.Entry(course).State = EntityState.Modified;
             _db.SaveChanges();
             return true;
         }
-
+        
         public bool DeleteCourse(Course course)
         {
             _db.courses.Remove(course);
             _db.SaveChanges();
             return true;
         }
-        /*
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-        */
     }
 }

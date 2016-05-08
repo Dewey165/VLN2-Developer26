@@ -8,35 +8,32 @@ using System.Web;
 using System.Web.Mvc;
 using Mooshak26.Models;
 using Mooshak26.Models.Entities;
+using Mooshak26.Services;
 
 namespace Mooshak26.Controllers
 {
     public class AssignmentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        private AssignmentsService _service = new AssignmentsService();
         // GET: Assignments
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            return View(db.Assignments.ToList());
+            var assignments = _service.GetAssignmentsInCourse(id);
+            return View(assignments);
+            //return View(db.Assignments.ToList());
         }
 
         // GET: Assignments/Details/5
-        public ActionResult Details(int? id)
+        
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Assignment assignment = db.Assignments.Find(id);
-            if (assignment == null)
-            {
-                return HttpNotFound();
-            }
-            return View(assignment);
+            var milestones = _service.GetMilestonesByAssignmentID(id);
+            return View(milestones);
         }
 
         // GET: Assignments/Create
+        [Authorize(Roles = "Teacher")]
         public ActionResult Create()
         {
             return View();
@@ -45,6 +42,7 @@ namespace Mooshak26.Controllers
         // POST: Assignments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "assignmentID,courseID,title,description,totalGrade,timeSubmitted,dueDate")] Assignment assignment)
@@ -60,6 +58,7 @@ namespace Mooshak26.Controllers
         }
 
         // GET: Assignments/Edit/5
+        [Authorize(Roles = "Teacher")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -77,6 +76,7 @@ namespace Mooshak26.Controllers
         // POST: Assignments/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Teacher")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "assignmentID,courseID,title,description,totalGrade,timeSubmitted,dueDate")] Assignment assignment)
@@ -91,6 +91,7 @@ namespace Mooshak26.Controllers
         }
 
         // GET: Assignments/Delete/5
+        [Authorize(Roles = "Teacher")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -106,6 +107,7 @@ namespace Mooshak26.Controllers
         }
 
         // POST: Assignments/Delete/5
+        [Authorize(Roles = "Teacher")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
