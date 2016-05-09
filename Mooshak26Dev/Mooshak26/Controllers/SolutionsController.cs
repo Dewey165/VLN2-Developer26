@@ -8,12 +8,14 @@ using System.Web;
 using System.Web.Mvc;
 using Mooshak26.Models;
 using Mooshak26.Models.Entities;
+using Mooshak26.Services;
 
 namespace Mooshak26.Controllers
 {
     public class SolutionsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private SolutionServices _service = new SolutionServices();
 
         // GET: Solutions
         public ActionResult Index()
@@ -47,7 +49,7 @@ namespace Mooshak26.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "solutionID,courseID,assignID,milestoneID,input,output")] Solution solution)
+        public ActionResult Create([Bind(Include = "Id,courseID,assignmentID,milestoneID,input,output")] Solution solution)
         {
             if (ModelState.IsValid)
             {
@@ -79,50 +81,85 @@ namespace Mooshak26.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "solutionID,courseID,assignID,milestoneID,input,output")] Solution solution)
+        public ActionResult Edit([Bind(Include = "Id,courseID,assignmentID,milestoneID,input,output")] Solution solution)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(solution).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.SaveChanges();
+                }catch(Exception e)
+                {
+                    Console.WriteLine(e.GetBaseException());
+                }
+                    return RedirectToAction("Index");
             }
             return View(solution);
         }
 
         // GET: Solutions/Delete/5
+
+        /*        public ActionResult Delete(int? id)
+                {
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    Solution solution = db.Solutions.Find(id);
+                    if (solution == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    return View(solution);
+                }
+
+                // POST: Solutions/Delete/5
+                [HttpPost, ActionName("Delete")]
+                [ValidateAntiForgeryToken]
+                public ActionResult DeleteConfirmed(int id)
+                {
+                    Solution solution = db.Solutions.Find(id);
+                    db.Solutions.Remove(solution);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                protected override void Dispose(bool disposing)
+                {
+                    if (disposing)
+                    {
+                        db.Dispose();
+                    }
+                    base.Dispose(disposing);
+                }*/
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Solution solution = db.Solutions.Find(id);
-            if (solution == null)
+            Solution sol = _service.FindSol(id);
+            if (sol == null)
             {
                 return HttpNotFound();
             }
-            return View(solution);
+            return View(sol);
         }
-
-        // POST: Solutions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Solution solution = db.Solutions.Find(id);
-            db.Solutions.Remove(solution);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            Solution sol = _service.FindSol(id);
+            if (_service.DeleteSolution(sol))
+            {
+                return RedirectToAction("Index");
+            }
+            //Here should be an error page..
+            return HttpNotFound();
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+
+
     }
 }

@@ -15,11 +15,29 @@ namespace Mooshak26.Controllers
     public class MilestonesController : Controller
     {
         private MilestoneService _service = new MilestoneService();
-
+        private UserService _us = new UserService();
+        private SolutionServices _ss = new SolutionServices();
         // GET: Milestones
         public ActionResult Index(int id)
         {
+
             return View(_service.GetMilestonesByAssignmentID(id));
+        }
+
+        //ADD SOLUTION
+        public ActionResult GoToSolution(int id)
+        {
+            User user = new Models.Entities.User();
+            user.userName = _us.GetUserName();
+            int uId = _us.FindUserIDByUsername(user.userName);
+            string role = _us.GetRole(uId);
+            if(role == "Teacher")
+            {
+                ViewBag.Solutions = _ss.getAllSolutions(id);
+
+                RedirectToAction("Create", "Solutions.Create");
+            }
+            return View();
         }
 
         // GET: Milestones/Details/5
