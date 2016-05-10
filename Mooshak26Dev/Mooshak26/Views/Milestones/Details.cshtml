@@ -1,5 +1,6 @@
 ﻿@model Mooshak26.Models.Entities.Milestone
 
+
 @{
     ViewBag.Title = "Details";
 }
@@ -43,6 +44,15 @@
         </dd>
 
     </dl>
+</div>
+<div>
+    <form action="" method="post" enctype="multipart/form-data">
+
+        <label for="file">Filename:</label>
+        <input type="file" name="file" id="file" />
+
+        <input type="submit" />
+    </form>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |

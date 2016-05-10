@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Mooshak26.Models;
 using Mooshak26.Models.Entities;
 using Mooshak26.Services;
+using System.IO;
 
 namespace Mooshak26.Controllers
 {
@@ -44,6 +45,21 @@ namespace Mooshak26.Controllers
         public ActionResult Details(int id)
         {
             return View(_service.GetMilestoneDetails(id));
+        }
+
+        [HttpPost]
+        public ActionResult Details(HttpPostedFileBase file)
+        {
+            var userID = _service.GetUserID();
+
+            if (file.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/App_Data/Submissions"), fileName);
+                file.SaveAs(path);
+            }
+
+            return RedirectToAction("Index", new { id = userID });
         }
 
         // GET: Milestones/Create
