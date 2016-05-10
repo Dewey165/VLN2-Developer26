@@ -1,4 +1,5 @@
 ﻿using Mooshak26.Models;
+using Mooshak26.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,16 @@ namespace Mooshak26.Services
             {
                 _milestoneService.DeleteMilestone(i.id);
             }
+        }
+        public void DeleteCourse(int id)
+        {
+            var linkCourses = _linkService.GetCoursesLinks(id);
+            foreach(Link item in linkCourses)
+            {
+                _db.Links.Remove(item);
+            }
+            //Todo delete assignments, milestones, solutions, submittedSolutions, 
+
         }
     }
 }

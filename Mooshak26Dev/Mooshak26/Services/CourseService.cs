@@ -12,7 +12,7 @@ namespace Mooshak26.Services
     {
         private ApplicationDbContext _db;
         private UserService _userService;
-    
+        private DeleteService _deleteService;
 
         public CourseService()
         {
@@ -88,7 +88,10 @@ namespace Mooshak26.Services
         
         public bool DeleteCourse(Course course)
         {
+            _deleteService = new DeleteService();
+            _deleteService.DeleteCourse(course.id);
             _db.courses.Remove(course);
+           
             _db.SaveChanges();
             return true;
         }

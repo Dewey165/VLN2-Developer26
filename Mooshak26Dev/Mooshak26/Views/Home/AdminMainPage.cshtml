@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "AdminMainPage";
+}
+
+<h2>Admin Main Page</h2>
+<div class="col-md-">
+    <div class="mainadmin">
+        <h4>Link</h4>
+        @Html.ActionLink("Link Users to Courses", "Index", new { controller = "Links", model = Model }, new { @class = "btn btn-default" })
+        <h4>Users</h4>
+        @Html.ActionLink("View Users", "Index", new { controller = "Users", model = Model }, new { @class = "btn btn-default" })
+        <h4>Courses</h4>
+        @Html.ActionLink("View Courses", "AdminCourses", new { controller = "Courses" }, new { @class = "btn btn-default" })
+    </div>
+    <div class="mainadmin">
+        <h4>Create</h4>
+        @Html.ActionLink("Create Users", "Create", new { controller = "Users", model = Model }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Create Courses", "Create", new { controller = "Courses" }, new { @class = "btn btn-default" })
+    </div>
+</div>

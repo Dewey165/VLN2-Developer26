@@ -232,6 +232,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\logo.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -296,7 +297,7 @@
     <Content Include="Views\Courses\Delete.cshtml" />
     <Content Include="Views\Courses\Details.cshtml" />
     <Content Include="Views\Courses\Edit.cshtml" />
-    <Content Include="Views\Courses\Index.cshtml" />
+    <None Include="Views\Courses\AdminCourses.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
     <Content Include="Views\Users\Details.cshtml" />
@@ -323,6 +324,7 @@
     <Content Include="Views\Milestones\GoToSolution.cshtml" />
     <Content Include="Views\Courses\TeacherMainPage.cshtml" />
     <Content Include="Views\Courses\StudentMainPage.cshtml" />
+    <Content Include="Views\Home\AdminMainPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Submissions\" />

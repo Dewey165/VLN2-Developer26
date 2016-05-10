@@ -23,7 +23,12 @@ namespace Mooshak26.Services
             _CourseService = new CourseService();
             _UserService = new UserService();
         }
-
+        public List<Link> GetCoursesLinks(int courseID)
+        {
+            var list = _db.Links
+               .Where(x => x.courseID == courseID).ToList();
+            return list;
+        }
         public List<Link> GetLinks()
         {
             return _db.Links.ToList();

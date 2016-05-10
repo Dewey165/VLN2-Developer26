@@ -1,11 +1,9 @@
 ﻿@model IEnumerable<Mooshak26.Models.Entities.Course>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Teachers main page";
 }
-<h2>Index</h2>
-<p>
-    @Html.ActionLink("Create New Course", "Create")
-</p>
+<h3>Please select an action next to each course.</h3>
+
 <table class="table">
     <tr>
         <th>
@@ -26,10 +24,8 @@
                 @Html.DisplayFor(modelItem => item.description)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.id }) |
                 @Html.ActionLink("See Assignments", "Index", "Assignments", new { id = item.id }, null) |
-            
+                @Html.ActionLink("See solutions", "Index", "Assignments", new { id = item.id }, null) 
             </td>
         </tr>
     }

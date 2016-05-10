@@ -33,8 +33,14 @@ namespace Mooshak26.Controllers
             }
             else
             {
-                return View(_service.GetCoursesByUserID(userID));
+                return RedirectToAction("AdminMainPage", "Home", "AdminMainPage");
             }       
+        }
+   
+        public ActionResult AdminCourses()
+        {
+            var userID = _service.GetUserID();
+            return View(_service.GetCoursesByUserID(userID));
         }
         public ActionResult TeacherMainPage()
         {
@@ -89,7 +95,7 @@ namespace Mooshak26.Controllers
             {
                 if (_service.CreateCourse(course))
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("AdminCourses");
                 }
             }
             return View(course);
@@ -123,7 +129,7 @@ namespace Mooshak26.Controllers
             {
                 if (_service.EditCourse(course))
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("AdminCourses");
                 }
             }
             return View(course);
@@ -154,7 +160,7 @@ namespace Mooshak26.Controllers
             Course course = _service.CourseDetails(id);
             if (_service.DeleteCourse(course))
             {
-                return RedirectToAction("Index");
+                    return RedirectToAction("AdminCourses");   
             }
             //Here should be an error page..
             return HttpNotFound();

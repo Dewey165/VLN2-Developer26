@@ -19,6 +19,10 @@ namespace Mooshak26.Controllers
 
             return View();
         }
+        public ActionResult AdminMainPage()
+        {
+            return View();
+        }
 
         public ActionResult Contact()
         {

@@ -1,11 +1,12 @@
 ﻿@model IEnumerable<Mooshak26.Models.Entities.Course>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Student courses";
 }
-<h2>Index</h2>
-<p>
-    @Html.ActionLink("Create New Course", "Create")
-</p>
+@using Microsoft.AspNet.Identity
+<h2> 
+    Please choose an action next to a course.
+</h2>
+
 <table class="table">
     <tr>
         <th>
@@ -26,7 +27,6 @@
                 @Html.DisplayFor(modelItem => item.description)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.id }) |
                 @Html.ActionLink("See Assignments", "Index", "Assignments", new { id = item.id }, null)
             </td>
         </tr>
