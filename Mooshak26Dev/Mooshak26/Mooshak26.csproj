@@ -321,6 +321,8 @@
     <Content Include="Views\Solutions\Edit.cshtml" />
     <Content Include="Views\Solutions\Index.cshtml" />
     <Content Include="Views\Milestones\GoToSolution.cshtml" />
+    <Content Include="Views\Courses\TeacherMainPage.cshtml" />
+    <Content Include="Views\Courses\StudentMainPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -29,7 +29,13 @@ namespace Mooshak26.Services
         {
             var userName = _userService.GetUserName();
             var userID = _db.MyUsers.SingleOrDefault(x => x.userName == userName).id;
+
             return userID;
+        }
+        public string GetUserRole()
+        {
+            var userID = GetUserID();
+            return _userService.GetRole(userID);
         }
         
 

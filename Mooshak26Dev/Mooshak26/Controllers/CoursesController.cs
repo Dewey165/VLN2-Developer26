@@ -23,6 +23,27 @@ namespace Mooshak26.Controllers
         {
 
             var userID = _service.GetUserID();
+            if(_service.GetUserRole() == "Teacher")
+            {
+                return RedirectToAction("TeacherMainPage");
+            }
+            else if (_service.GetUserRole() == "Student")
+            {
+                return RedirectToAction("StudentMainPage");
+            }
+            else
+            {
+                return View(_service.GetCoursesByUserID(userID));
+            }       
+        }
+        public ActionResult TeacherMainPage()
+        {
+            var userID = _service.GetUserID();
+            return View(_service.GetCoursesByUserID(userID));
+        }
+        public ActionResult StudentMainPage()
+        {
+            var userID = _service.GetUserID();
             return View(_service.GetCoursesByUserID(userID));
         }
 
