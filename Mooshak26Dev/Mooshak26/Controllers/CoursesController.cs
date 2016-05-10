@@ -33,7 +33,7 @@ namespace Mooshak26.Controllers
             }
             else
             {
-                return RedirectToAction("AdminMainPage", "Home", "AdminMainPage");
+                return RedirectToAction("AdminMainPage", "Home");
             }       
         }
    
