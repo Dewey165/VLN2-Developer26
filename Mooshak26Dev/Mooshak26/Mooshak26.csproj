@@ -297,6 +297,7 @@
     <Content Include="Views\Courses\Delete.cshtml" />
     <Content Include="Views\Courses\Details.cshtml" />
     <Content Include="Views\Courses\Edit.cshtml" />
+    <Content Include="Views\Assignments\TeachersIndex.cshtml" />
     <None Include="Views\Courses\AdminCourses.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
@@ -325,6 +326,7 @@
     <Content Include="Views\Courses\TeacherMainPage.cshtml" />
     <Content Include="Views\Courses\StudentMainPage.cshtml" />
     <Content Include="Views\Home\AdminMainPage.cshtml" />
+    <Content Include="Views\Milestones\TeachersIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Submissions\" />

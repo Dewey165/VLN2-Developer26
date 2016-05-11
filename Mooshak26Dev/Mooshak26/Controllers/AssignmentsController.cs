@@ -20,6 +20,14 @@ namespace Mooshak26.Controllers
         // GET: Assignments
         public ActionResult Index(int id)
         {
+            if (_service.GetRole() == "Teacher")
+            {
+                return RedirectToAction("TeachersIndex", new { id = id });
+            }
+            return View(_service.GetAssignmentsInCourse(id));
+        }
+        public ActionResult TeachersIndex(int id)
+        {
             return View(_service.GetAssignmentsInCourse(id));
         }
 

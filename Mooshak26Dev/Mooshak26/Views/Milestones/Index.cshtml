@@ -6,31 +6,24 @@
 
 <h2>Milestone in Assignment</h2>
 
-<p>
-    @Html.ActionLink("Create New Milestone", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.assignmentID)
+            Milestone
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.title)
+            Description
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.description)
+            Grade
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.grade)
+            Actions
         </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.assignmentID)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.title)
         </td>
@@ -41,12 +34,13 @@
             @Html.DisplayFor(modelItem => item.grade)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id }) |
-            @Html.ActionLink("GoToSolution", "GoToSolution", new { id=item.id})
+            @Html.ActionLink("Details/Submit Solution", "Details", new { id=item.id }) |
+            @Html.ActionLink("See My Solutions", "GoToSolution", new { id=item.id})
         </td>
     </tr>
 }
 
 </table>
+
+    @Html.ActionLink("Go Back", "Index", new { controller = "Courses" }, new { @class = "btn btn-default" })
+    

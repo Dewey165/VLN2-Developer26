@@ -6,27 +6,26 @@
 
 <h2>Assignments in course</h2>
 
-<p>
-    @Html.ActionLink("Create New Assignment", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.title)
+            Assignment
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.description)
+            Description
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.totalGrade)
+            Total grade
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.timeSubmitted)
+            Time submitted
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.dueDate)
+            Due date
         </th>
-        <th></th>
+        <th>
+            Actions
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -48,11 +47,7 @@
             @Html.DisplayFor(modelItem => item.dueDate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("See Milestones", "Index", "Milestones", new { id = item.id }, null) |
-            @Html.ActionLink("Create Milestone", "Create", "Milestones", new { assignmentID = item.id }, null) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("See Milestones", "Index", "Milestones", new { id = item.id }, null) 
         </td>
     </tr>
 }

@@ -27,6 +27,13 @@ namespace Mooshak26.Services
                 .Where(x => x.courseID == courseID).ToList();
             return list;
         }
+        public string GetRole()
+        {
+            var userName = HttpContext.Current.User.Identity.Name;
+            var userRole = _db.MyUsers.SingleOrDefault
+              (x => x.userName == userName).role;
+            return userRole;
+        }
         public Assignment GetAssignmentDetails(int id)
         {
            return _db.Assignments.Find(id);

@@ -42,7 +42,15 @@ namespace Mooshak26.Services
 
             return userID;
         }
-     
+
+        public string GetRole()
+        {
+            var userName = HttpContext.Current.User.Identity.Name;
+            var userRole = _db.MyUsers.SingleOrDefault
+              (x => x.userName == userName).role;
+            return userRole;
+        }
+
         public SelectList GetUsersAssignmentTitles(int assignmentID)
         {
             var userId = GetUserID();

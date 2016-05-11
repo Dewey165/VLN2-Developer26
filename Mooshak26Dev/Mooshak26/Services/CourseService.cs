@@ -28,6 +28,10 @@ namespace Mooshak26.Services
         public int GetUserID()
         {
             var userName = _userService.GetUserName();
+            if(userName == "")
+            {
+                return 0;
+            }
             var userID = _db.MyUsers.SingleOrDefault(x => x.userName == userName).id;
 
             return userID;

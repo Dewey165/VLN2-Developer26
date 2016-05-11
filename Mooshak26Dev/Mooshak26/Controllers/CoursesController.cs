@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Mooshak26.Models;
 using Mooshak26.Models.Entities;
 using Mooshak26.Services;
+using System.Web.UI.WebControls;
 
 namespace Mooshak26.Controllers
 {
@@ -21,8 +22,12 @@ namespace Mooshak26.Controllers
         // GET: Courses
         public ActionResult Index()
         {
-
+         
             var userID = _service.GetUserID();
+            if (userID == 0)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if(_service.GetUserRole() == "Teacher")
             {
                 return RedirectToAction("TeacherMainPage");
@@ -57,10 +62,6 @@ namespace Mooshak26.Controllers
         public ActionResult Details(int id)
         {
             
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             //Get course details through the CourseService...
             Course course = _service.CourseDetails(id);
             if (course == null)

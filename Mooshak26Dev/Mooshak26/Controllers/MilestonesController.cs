@@ -21,13 +21,24 @@ namespace Mooshak26.Controllers
         // GET: Milestones
         public ActionResult Index(int id)
         {
-
+            if (_service.GetRole() == "Teacher")
+            {
+                return RedirectToAction("TeachersIndex", new { id = id });
+            }
+            return View(_service.GetMilestonesByAssignmentID(id));
+        }
+        public ActionResult TeachersIndex(int id)
+        {
             return View(_service.GetMilestonesByAssignmentID(id));
         }
 
         //ADD SOLUTION
         public ActionResult GoToSolution(int id)
         {
+            if (_service.GetRole() == "Teacher")
+            {
+                return RedirectToAction("TeachersIndex");
+            }
             User user = new Models.Entities.User();
             user.userName = _us.GetUserName();
             int uId = _us.FindUserIDByUsername(user.userName);
@@ -80,7 +91,7 @@ namespace Mooshak26.Controllers
             {
                 if(_service.CreateMilestone(milestone))
                 {
-                    return RedirectToAction("Index", new { id = milestone.assignmentID });
+                    return RedirectToAction("TeachersIndex", new { id = milestone.assignmentID });
                 }
             }
             return View(milestone);
@@ -103,7 +114,7 @@ namespace Mooshak26.Controllers
             {
                 if(_service.EditMilestone(milestone))
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("TeachersIndex", new { id = milestone.assignmentID });
                 }
             }
             return View(milestone);
@@ -120,8 +131,9 @@ namespace Mooshak26.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            var assignmentID = _service.GetMilestoneDetails(id).assignmentID;
             _service.DeleteMilestone(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("TeachersIndex", new { id = assignmentID });
         }
 
         protected override void Dispose(bool disposing)
