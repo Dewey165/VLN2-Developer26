@@ -239,5 +239,12 @@ namespace Mooshak26.Services
                 _db.SaveChanges();
             }
         }
+        public List<SubmittedSolution> getResults(int id)
+        {
+            return (_db.SubmittedSolutions.Where(x => x.milestoneID
+            == id).ToList());
+        }
     }
+
+
 }

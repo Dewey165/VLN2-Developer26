@@ -148,7 +148,7 @@ namespace Mooshak26.Controllers
 
         public ActionResult ViewSolutionsOf(int id)
         {
-            var result = _us.getResults(_service.GetMilestoneDetails(id));
+            var result = _service.getResults(id);
             return View(result);
         }
 
