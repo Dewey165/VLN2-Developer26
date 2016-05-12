@@ -10,7 +10,8 @@
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding: 0em 3em;
+    padding-top: 1em;
+    padding-bottom: 5em;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
