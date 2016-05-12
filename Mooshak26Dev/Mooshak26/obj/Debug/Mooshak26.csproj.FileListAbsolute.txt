@@ -570,8 +570,6 @@ C:\Users\Ágúst\Desktop\vln2\gitDev\VLN2-Developer26\Mooshak26Dev\Mooshak26\bin
 C:\Users\Ágúst\Desktop\vln2\gitDev\VLN2-Developer26\Mooshak26Dev\Mooshak26\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\Ágúst\Desktop\vln2\gitDev\VLN2-Developer26\Mooshak26Dev\Mooshak26\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\Ágúst\Desktop\vln2\gitDev\VLN2-Developer26\Mooshak26Dev\Mooshak26\obj\Debug\Mooshak26.dll
-C:\Users\Ágúst\Desktop\vln2\gitDev\VLN2-Developer26\Mooshak26Dev\Mooshak26\obj\Debug\Mooshak26.pdb
-<<<<<<< HEAD
 C:\Users\Ágúst\Desktop\vln2\gitDev\VLN2-Developer26\Mooshak26Dev\Mooshak26\obj\Debug\Mooshak26.csprojResolveAssemblyReference.cache
 =======
 C:\Users\Ladan\Desktop\VLN2\Thursday\VLN2-Developer26\Mooshak26Dev\Mooshak26\bin\ApplicationInsights.config
@@ -656,4 +654,4 @@ C:\Users\Ladan\Desktop\VLN2\Thursday\VLN2-Developer26\Mooshak26Dev\Mooshak26\bin
 C:\Users\Ladan\Desktop\VLN2\Thursday\VLN2-Developer26\Mooshak26Dev\Mooshak26\obj\Debug\Mooshak26.csprojResolveAssemblyReference.cache
 C:\Users\Ladan\Desktop\VLN2\Thursday\VLN2-Developer26\Mooshak26Dev\Mooshak26\obj\Debug\Mooshak26.dll
 C:\Users\Ladan\Desktop\VLN2\Thursday\VLN2-Developer26\Mooshak26Dev\Mooshak26\obj\Debug\Mooshak26.pdb
->>>>>>> 69499069f45998bdcb3208154f0feb0105e4ce5b
+C:\Users\Ágúst\Desktop\vln2\gitDev\VLN2-Developer26\Mooshak26Dev\Mooshak26\obj\Debug\Mooshak26.pdb
