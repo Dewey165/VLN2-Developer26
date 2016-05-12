@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Admin course page</h2>
+<h2>Admin Course page</h2>
 
 <p>
     @Html.ActionLink("Create New Course", "Create")
@@ -38,3 +38,4 @@
 }
 
 </table>
+@Html.ActionLink("Go Back", "Index", new { controller = "Courses" }, new { @class = "btn btn-default" })

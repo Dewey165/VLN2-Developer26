@@ -3,12 +3,9 @@
 @{
     ViewBag.Title = "Delete";
 }
-
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h2> Delete Course</h2>
+<h4>Are you sure you want to delete this course?</h4>
 <div>
-    <h4>Course</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -34,7 +31,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Go Back", "AdminCourses", new { controller = "Courses" }, new { @class = "btn btn-default" })
         </div>
     }
 </div>
