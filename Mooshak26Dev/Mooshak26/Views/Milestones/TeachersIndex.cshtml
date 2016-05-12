@@ -4,44 +4,47 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Milestone in Assignment</h2>
-
-<table class="table">
-    <tr>
-        <th>
-            Assignment name
-        </th>
-        <th>
-            Description
-        </th>
-        <th>
-            Grade 
-        </th>
-        <th>
-            Actions
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<h2>Milestones in Assignment</h2>
+<div>
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.grade)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.id }) |
-                @Html.ActionLink("See Solutions", "GoToSolution", new { id = item.id })
-            </td>
+            <th>
+                Assignment name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Grade
+            </th>
+            <th>
+                Actions
+            </th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.grade)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id }) |
+                    @Html.ActionLink("See Solutions", "Index", "Solutions" ,  new { id = item.id }, null) |
+                    @Html.ActionLink("Create New Solution", "Create", "Solutions", new { id = item.id }, null) |
+                    @Html.ActionLink("See Submissions", "Index", new { id = item.id }) 
+                </td>
+            </tr>
+        }
 
-@Html.ActionLink("Go Back", "Index", new { controller = "Courses" }, new { @class = "btn btn-default" })
+    </table>
+
+   @Html.ActionLink("Go Back", "Index", new { controller = "Assignments", id = Model.ElementAt(0).assignmentID }, new { @class = "btn btn-default" })
+</div>

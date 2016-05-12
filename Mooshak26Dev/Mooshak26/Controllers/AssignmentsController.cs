@@ -26,6 +26,7 @@ namespace Mooshak26.Controllers
             }
             return View(_service.GetAssignmentsInCourse(id));
         }
+
         public ActionResult TeachersIndex(int id)
         {
             return View(_service.GetAssignmentsInCourse(id));

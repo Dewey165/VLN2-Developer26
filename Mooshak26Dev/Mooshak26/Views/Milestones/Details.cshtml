@@ -7,54 +7,56 @@
 
 <h2>Details</h2>
 
-<div>
-    <h4>Milestone</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.assignmentID)
-        </dt>
+    <div>
+        <h4>Milestone</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.assignmentID)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.assignmentID)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.assignmentID)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.title)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.title)
+            </dt>
+        
+            <dd>
+                @Html.DisplayFor(model => model.title)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.title)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.description)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.description)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.description)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.description)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.grade)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.grade)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.grade)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.grade)
-        </dd>
+        </dl>
+    </div>
+    <div>
 
-    </dl>
-</div>
-<div>
-    <form action="" method="post" enctype="multipart/form-data">
-
-        <label for="file">Filename:</label>
-        <input type="file" name="file" id="file" />
-
-        <input type="submit" />
-    </form>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        <form action="" method="post" enctype="multipart/form-data">
+          
+            <label for="file">Filename:</label>
+            <input type="file" name="file" id="file"/>
+            <br />
+            <input type="submit"/>
+        </form>
+    </div>
+    <br />
+    <br />
+    <p>
+        @Html.ActionLink("Go Back", "Index", new { controller = "Milestones", id = Model.assignmentID }, new { @class = "btn btn-default" })
+    </p>

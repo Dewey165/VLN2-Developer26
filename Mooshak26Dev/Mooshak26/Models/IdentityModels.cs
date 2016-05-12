@@ -29,6 +29,7 @@ namespace Mooshak26.Models
         public DbSet<Course> courses { get; set; }
         public DbSet<User> MyUsers { get; set; }
         public DbSet<Link> Links { get; set; }
+        public DbSet<SubmittedSolution> SubmittedSolutions { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

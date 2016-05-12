@@ -569,6 +569,6 @@ C:\Users\GodDewey\Desktop\VLN2\dev\VLN2-Developer26\Mooshak26Dev\Mooshak26\bin\M
 C:\Users\GodDewey\Desktop\VLN2\dev\VLN2-Developer26\Mooshak26Dev\Mooshak26\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\GodDewey\Desktop\VLN2\dev\VLN2-Developer26\Mooshak26Dev\Mooshak26\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\GodDewey\Desktop\VLN2\dev\VLN2-Developer26\Mooshak26Dev\Mooshak26\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\GodDewey\Desktop\VLN2\dev\VLN2-Developer26\Mooshak26Dev\Mooshak26\obj\Debug\Mooshak26.csprojResolveAssemblyReference.cache
 C:\Users\GodDewey\Desktop\VLN2\dev\VLN2-Developer26\Mooshak26Dev\Mooshak26\obj\Debug\Mooshak26.dll
 C:\Users\GodDewey\Desktop\VLN2\dev\VLN2-Developer26\Mooshak26Dev\Mooshak26\obj\Debug\Mooshak26.pdb
+C:\Users\GodDewey\Desktop\VLN2\dev\VLN2-Developer26\Mooshak26Dev\Mooshak26\obj\Debug\Mooshak26.csprojResolveAssemblyReference.cache

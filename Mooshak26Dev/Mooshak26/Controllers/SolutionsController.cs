@@ -14,34 +14,24 @@ namespace Mooshak26.Controllers
 {
     public class SolutionsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
         private SolutionServices _service = new SolutionServices();
 
         // GET: Solutions
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            return View(db.Solutions.ToList());
+            return View(_service.GetAllSolutions(id));
         }
 
         // GET: Solutions/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Solution solution = db.Solutions.Find(id);
-            if (solution == null)
-            {
-                return HttpNotFound();
-            }
-            return View(solution);
+            return View(_service.GetSolutionDetails(id));
         }
 
         // GET: Solutions/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            return View();
+            return View(_service.GetSolutionCreationInfo(id));
         }
 
         // POST: Solutions/Create
@@ -53,27 +43,19 @@ namespace Mooshak26.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Solutions.Add(solution);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if(_service.CreateSolution(solution))
+                {
+                    return RedirectToAction("Index", new { id = solution.milestoneID });
+                }
             }
 
             return View(solution);
         }
 
         // GET: Solutions/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Solution solution = db.Solutions.Find(id);
-            if (solution == null)
-            {
-                return HttpNotFound();
-            }
-            return View(solution);
+        public ActionResult Edit(int id)
+        { 
+            return View(_service.GetSolutionDetails(id));
         }
 
         // POST: Solutions/Edit/5
@@ -85,61 +67,17 @@ namespace Mooshak26.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(solution).State = EntityState.Modified;
-                try
+               if(_service.EditSolution(solution))
                 {
-                    db.SaveChanges();
-                }catch(Exception e)
-                {
-                    Console.WriteLine(e.GetBaseException());
+                    return RedirectToAction("Index", new { id = solution.milestoneID });
                 }
-                    return RedirectToAction("Index");
             }
             return View(solution);
         }
 
-        // GET: Solutions/Delete/5
-
-        /*        public ActionResult Delete(int? id)
-                {
-                    if (id == null)
-                    {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    }
-                    Solution solution = db.Solutions.Find(id);
-                    if (solution == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    return View(solution);
-                }
-
-                // POST: Solutions/Delete/5
-                [HttpPost, ActionName("Delete")]
-                [ValidateAntiForgeryToken]
-                public ActionResult DeleteConfirmed(int id)
-                {
-                    Solution solution = db.Solutions.Find(id);
-                    db.Solutions.Remove(solution);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-
-                protected override void Dispose(bool disposing)
-                {
-                    if (disposing)
-                    {
-                        db.Dispose();
-                    }
-                    base.Dispose(disposing);
-                }*/
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Solution sol = _service.FindSol(id);
+            Solution sol = _service.GetSolutionDetails(id);
             if (sol == null)
             {
                 return HttpNotFound();
@@ -150,10 +88,10 @@ namespace Mooshak26.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Solution sol = _service.FindSol(id);
+            Solution sol = _service.GetSolutionDetails(id);
             if (_service.DeleteSolution(sol))
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = sol.milestoneID });
             }
             //Here should be an error page..
             return HttpNotFound();

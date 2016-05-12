@@ -3,9 +3,12 @@ using Mooshak26.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using IronPython.Hosting;
 
 namespace Mooshak26.Services
 {
@@ -66,7 +69,6 @@ namespace Mooshak26.Services
 
             return list;
 
-
         }
         public Boolean EditMilestone(Milestone milestone)
         {
@@ -80,6 +82,110 @@ namespace Mooshak26.Services
             _db.Milestones.Remove(milestone);
             _db.SaveChanges();
             return true;
+        }
+        public List<SubmittedSolution> Feedback(int id)
+        {
+            var submittedSolution = 
+                _db.SubmittedSolutions.Where(x => x.userID == id).ToList();
+            return submittedSolution;
+        }
+        public List<string> GetInputs(int milestoneID)
+        {
+            return _db.Solutions
+                .Where(x => x.milestoneID == milestoneID)
+                .Select(x => x.input).ToList();
+        }
+        public List<string> GetOutputs(int milestoneID)
+        {
+            return _db.Solutions
+                .Where(x => x.milestoneID == milestoneID)
+                .Select(x => x.output).ToList();
+        }
+        public void RunPythonProgram(Milestone milestone, string path)
+        {
+        
+        }
+        /*
+        public void RunPythonProgram(Milestone milestone, string path)
+        {
+            string pythonInterpreter = @"C:\Users\GodDewey\Anaconda3\python.exe";
+            
+            int x = 2;
+            int y = 5;
+            ProcessStartInfo start = new ProcessStartInfo(pythonInterpreter);
+            // make sure we can read the output from stdout 
+            start.UseShellExecute = false;
+            start.RedirectStandardOutput = true;
+            // List<string> inputs = GetInputs(milestone.id);
+            //   List<string> outputs = GetInputs(milestone.id);
+            // start python app with 3 arguments  
+            // 1st argument is pointer to itself, 2nd and 3rd are actual arguments we want to send 
+            start.Arguments = string.Format("{0} {1} {2}",path, x, y);
+            using (Process process = Process.Start(start))
+            {
+                using (StreamReader reader = process.StandardOutput)
+                {
+                    string result = reader.ReadToEnd();
+                    Console.Write(result);
+                }
+            }
+            
+        }   
+        */
+        public void RunCPlusPlusProgram(Milestone milestone, string path)
+        {
+            int x = 2;
+            int y = 5;
+            var workingFolder = "C:\\Users\\GodDewey\\Desktop\\VLN2\\dev\\VLN2-Developer26\\Mooshak26Dev\\Mooshak26\\App_Data\\Submissions\\";
+           
+
+            var compilerFolder = "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\bin\\";
+            var cppFileName = "Program.cpp";
+            // Execute the compiler:
+            Process compiler = new Process();
+            compiler.StartInfo.FileName = "cmd.exe";
+            compiler.StartInfo.WorkingDirectory = workingFolder;
+            compiler.StartInfo.RedirectStandardInput = true;
+            compiler.StartInfo.RedirectStandardOutput = true;
+            compiler.StartInfo.UseShellExecute = false;
+
+            compiler.Start();
+            compiler.StandardInput.WriteLine("\"" + compilerFolder + "vcvars32.bat" + "\"");
+            compiler.StandardInput.WriteLine("cl.exe /nologo /EHsc " + cppFileName);
+            compiler.StandardInput.WriteLine("exit");
+            string output = compiler.StandardOutput.ReadToEnd();
+            compiler.WaitForExit();
+            compiler.Close();
+
+            // Check if the compile succeeded, and if it did,
+            // we try to execute the code:
+            if (System.IO.File.Exists(path))
+            {
+                var processInfoExe = new ProcessStartInfo(path, x + " " + y);
+                processInfoExe.UseShellExecute = false;
+                processInfoExe.RedirectStandardOutput = true;
+                processInfoExe.RedirectStandardError = true;
+                processInfoExe.CreateNoWindow = true;
+                using (var processExe = new Process())
+                {
+                    processExe.StartInfo = processInfoExe;
+                    processExe.Start();
+                    // In this example, we don't try to pass any input
+                    // to the program, but that is of course also
+                    // necessary. We would do that here, using
+                    // processExe.StandardInput.WriteLine(), similar
+                    // to above.
+
+                    // We then read the output of the program:
+                    var lines = new List<string>();
+                    while (!processExe.StandardOutput.EndOfStream)
+                    {
+                        lines.Add(processExe.StandardOutput.ReadLine());
+                    }
+
+                    
+                }
+            }
         }
     }
 }

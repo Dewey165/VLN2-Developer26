@@ -18,6 +18,7 @@ namespace Mooshak26.Controllers
         private MilestoneService _service = new MilestoneService();
         private UserService _us = new UserService();
         private SolutionServices _ss = new SolutionServices();
+        private Milestone milestoneCoding;
         // GET: Milestones
         public ActionResult Index(int id)
         {
@@ -45,7 +46,7 @@ namespace Mooshak26.Controllers
             string role = _us.GetRole(uId);
             if(role == "Teacher")
             {
-                ViewBag.Solutions = _ss.getAllSolutions(id);
+                ViewBag.Solutions = _ss.GetAllSolutions(id);
 
                 RedirectToAction("Create", "Solutions.Create");
             }
@@ -55,22 +56,38 @@ namespace Mooshak26.Controllers
         // GET: Milestones/Details/5
         public ActionResult Details(int id)
         {
-            return View(_service.GetMilestoneDetails(id));
+            milestoneCoding = _service.GetMilestoneDetails(id);
+            return View(milestoneCoding);
         }
 
         [HttpPost]
         public ActionResult Details(HttpPostedFileBase file)
         {
             var userID = _service.GetUserID();
-
             if (file.ContentLength > 0)
             {
-                var fileName = Path.GetFileName(file.FileName);
-                var path = Path.Combine(Server.MapPath("~/App_Data/Submissions"), fileName);
-                file.SaveAs(path);
-            }
+                var FileExtension = Path.GetExtension(file.FileName);
+                var fileName = "program" + FileExtension;
 
-            return RedirectToAction("Index", new { id = userID });
+                var path = Path.Combine(Server.MapPath("~/App_Data/Submissions"), fileName);
+
+                file.SaveAs(path);
+                if(FileExtension == ".py")
+                {
+                    _service.RunPythonProgram(milestoneCoding, path);
+                }
+                else if(FileExtension == ".cpp")
+                {
+                    _service.RunCPlusPlusProgram(milestoneCoding, path);
+                }
+               
+            }
+           
+            return RedirectToAction("Feedback", new { id = userID });
+        }
+        public ActionResult Feedback(int id)
+        {
+            return View(_service.Feedback(id));
         }
 
         // GET: Milestones/Create

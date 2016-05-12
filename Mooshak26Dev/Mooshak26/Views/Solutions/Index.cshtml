@@ -4,24 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Solutions for Milestone</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
-        <th>
-
-            @Html.DisplayNameFor(model => model.courseID) 
-
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.assignmentID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.milestoneID)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.input)
         </th>
@@ -34,15 +20,6 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.courseID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.assignmentID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.milestoneID)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.input)
         </td>
         <td>
@@ -50,10 +27,10 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id}) |
             @Html.ActionLink("Delete", "Delete", new { id = item.Id })
         </td>
     </tr>
 }
 
 </table>
+@Html.ActionLink("Go Back", "Index", new { controller = "Milestones", id = Model.ElementAt(0).assignmentID }, new { @class = "btn btn-default" })
