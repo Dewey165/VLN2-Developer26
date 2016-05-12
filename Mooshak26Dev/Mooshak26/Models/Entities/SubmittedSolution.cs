@@ -18,8 +18,8 @@ namespace Mooshak26.Models.Entities
         public int milestoneID { get; set; }
         public int userID { get; set; }
         public string input { get; set; }
+        public string expectedOutput { get; set; }
         public string output { get; set; }
         public bool correct { get; set; }
-        public DateTime timeSubmitted { get; set; }
     }
 }

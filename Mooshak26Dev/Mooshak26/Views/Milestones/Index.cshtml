@@ -23,6 +23,7 @@
     </tr>
 
 @foreach (var item in Model) {
+    @Html.HiddenFor(modelItem => item.assignmentID)
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.title)
@@ -35,7 +36,7 @@
         </td>
         <td>
             @Html.ActionLink("Details/Submit Solution", "Details", new { id=item.id }) |
-            @Html.ActionLink("See My Solutions", "GoToSolution", new { id=item.id})
+            @Html.ActionLink("See My Solutions", "mySolutions", new { id=item.id})
         </td>
     </tr>
 }

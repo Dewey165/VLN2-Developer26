@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -238,6 +239,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\logo.jpg" />
     <Content Include="mooicon.ico" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
@@ -322,7 +324,7 @@
     <Content Include="Views\Solutions\Delete.cshtml" />
     <Content Include="Views\Solutions\Edit.cshtml" />
     <Content Include="Views\Solutions\Index.cshtml" />
-    <Content Include="Views\Milestones\GoToSolution.cshtml" />
+    <Content Include="Views\Milestones\mySolutions.cshtml" />
     <Content Include="Views\Courses\TeacherMainPage.cshtml" />
     <Content Include="Views\Courses\StudentMainPage.cshtml" />
     <Content Include="Views\Home\AdminMainPage.cshtml" />

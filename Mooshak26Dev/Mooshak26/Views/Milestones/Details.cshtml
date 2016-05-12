@@ -1,62 +1,64 @@
-﻿@model Mooshak26.Models.Entities.Milestone
-
+﻿@model Mooshak26.Models.ViewModels.MilestoneViewModel
+    
 
 @{
     ViewBag.Title = "Details";
 }
-
-<h2>Details</h2>
+@using (Html.BeginForm("Details", "Milestones", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <br />
+<h3>Details about milestone, to turn in your program, press "Choose file" and find the file to submit.</h3>
 
     <div>
         <h4>Milestone</h4>
         <hr />
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.assignmentID)
+                @Html.DisplayNameFor(model => model.milestone.assignmentID)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.assignmentID)
+                @Html.DisplayFor(model => model.milestone.assignmentID)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.title)
+                @Html.DisplayNameFor(model => model.milestone.title)
             </dt>
         
             <dd>
-                @Html.DisplayFor(model => model.title)
+                @Html.DisplayFor(model => model.milestone.title)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.description)
+                @Html.DisplayNameFor(model => model.milestone.description)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.description)
+                @Html.DisplayFor(model => model.milestone.description)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.grade)
+                @Html.DisplayNameFor(model => model.milestone.grade)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.grade)
+                @Html.DisplayFor(model => model.milestone.grade)
             </dd>
 
         </dl>
     </div>
     <div>
+        @Html.HiddenFor(model => model.milestone.assignmentID)
+        @Html.HiddenFor(model => model.milestone.id)
+        @Html.HiddenFor(model => model.milestone.grade)
 
-        <form action="" method="post" enctype="multipart/form-data">
-          
-            <label for="file">Filename:</label>
-            <input type="file" name="file" id="file"/>
-            <br />
-            <input type="submit"/>
-        </form>
-    </div>
+        @Html.TextBoxFor(model => model.file, new { type = "file" })
+        <br />
+        <input type="submit" value="Submit" class="btn btn-default" />
+        @Html.ActionLink("Go Back", "Index", new { controller = "Milestones", id = Model.milestone.assignmentID }, new { @class = "btn btn-default" })
+     </div>
     <br />
-    <br />
-    <p>
-        @Html.ActionLink("Go Back", "Index", new { controller = "Milestones", id = Model.assignmentID }, new { @class = "btn btn-default" })
-    </p>
+
+       
+}

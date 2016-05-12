@@ -10,6 +10,7 @@ using Mooshak26.Models;
 using Mooshak26.Models.Entities;
 using Mooshak26.Services;
 using System.IO;
+using Mooshak26.Models.ViewModels;
 
 namespace Mooshak26.Controllers
 {
@@ -34,56 +35,48 @@ namespace Mooshak26.Controllers
         }
 
         //ADD SOLUTION
-        public ActionResult GoToSolution(int id)
+        public ActionResult mySolutions(int id)
         {
-            if (_service.GetRole() == "Teacher")
-            {
-                return RedirectToAction("TeachersIndex");
-            }
-            User user = new Models.Entities.User();
-            user.userName = _us.GetUserName();
-            int uId = _us.FindUserIDByUsername(user.userName);
-            string role = _us.GetRole(uId);
-            if(role == "Teacher")
-            {
-                ViewBag.Solutions = _ss.GetAllSolutions(id);
-
-                RedirectToAction("Create", "Solutions.Create");
-            }
-            return View();
+            return View(_service.mySolutions(id));
         }
 
         // GET: Milestones/Details/5
         public ActionResult Details(int id)
         {
-            milestoneCoding = _service.GetMilestoneDetails(id);
-            return View(milestoneCoding);
+            var milestone1 = _service.GetMilestoneDetails(id);
+            MilestoneViewModel temp = new MilestoneViewModel
+            {
+                milestone = milestone1,
+                file = null
+            };
+            return View(temp);
         }
 
         [HttpPost]
-        public ActionResult Details(HttpPostedFileBase file)
+       // public ActionResult Details(HttpPostedFileBase file)
+        public ActionResult Details(MilestoneViewModel milestoneAndFile)
         {
             var userID = _service.GetUserID();
-            if (file.ContentLength > 0)
+            if (milestoneAndFile.file.ContentLength > 0)
             {
-                var FileExtension = Path.GetExtension(file.FileName);
+                var FileExtension = Path.GetExtension(milestoneAndFile.file.FileName);
                 var fileName = "program" + FileExtension;
+                var path = Path.Combine(Server.MapPath("~/App_Data/Submissions"));
+                var fullPath = Path.Combine(Server.MapPath("~/App_Data/Submissions"), fileName);
 
-                var path = Path.Combine(Server.MapPath("~/App_Data/Submissions"), fileName);
-
-                file.SaveAs(path);
+                milestoneAndFile.file.SaveAs(fullPath);
                 if(FileExtension == ".py")
                 {
-                    _service.RunPythonProgram(milestoneCoding, path);
+                    _service.RunPythonProgram(milestoneAndFile.milestone, path);
                 }
                 else if(FileExtension == ".cpp")
                 {
-                    _service.RunCPlusPlusProgram(milestoneCoding, path);
+                    _service.RunCPlusPlusProgram(milestoneAndFile.milestone, path);
                 }
                
             }
            
-            return RedirectToAction("Feedback", new { id = userID });
+            return RedirectToAction("Feedback", new { id = milestoneAndFile.milestone.id });
         }
         public ActionResult Feedback(int id)
         {

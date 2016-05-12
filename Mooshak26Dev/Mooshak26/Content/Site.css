@@ -1,12 +1,16 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    padding-top: 5em;
+    padding-bottom: 1.5em;
+    background-color:#F8F8F8;
+    margin-bottom:0;
+    padding-bottom:0;
+    font-family: Calibri;
+    font-size: 1.5em;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 0em 3em;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -22,3 +26,99 @@ select,
 textarea {
     max-width: 280px;
 }
+
+footer {
+
+    clear: both;
+    position: fixed;
+    bottom:0;
+    width: 100%;
+    height: 3em;
+    background-color: #efefef;
+    text-align: left;
+    background-color:black;
+    color: silver;
+}
+
+footer > p {
+    margin-left: 10em;
+    margin-top: 1em;
+} 
+
+}
+.navbar container { 
+    min-height: 80px; 
+    
+}
+
+.navbar {
+    background-color: black;
+    padding: 1em 0;
+    color: red;
+}
+    
+h2 {
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+    margin-left:0em;
+    padding-left: 0em;
+    font-family: Calibri;
+}
+
+h3 {
+    margin-top:1em;
+    margin-bottom: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+    font-family: Calibri;
+    font-family: Calibri;
+
+}
+
+.logo-image {
+    margin-top: 1em;
+}
+
+hr{
+    border: solid grey 0.5px;
+}
+
+
+.btn {
+    background-color: #264d73;
+    border-color: #ffffff;
+    font-weight:bold;
+    color: white;
+}
+
+.btn:hover{
+    font: bolder;
+    background-color: #79a6d2;
+    border-color: #264d73;
+    color: white;
+}
+
+tr:nth-child(even)
+{
+    background-color:#c6d9ec;
+
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color:#ecf2f9;
+}
+
+
+th {
+    background-color: #264d73;
+    color: white;
+}
+
+table:last-child {
+    border-bottom: solid grey 1px;
+}
+
+
+

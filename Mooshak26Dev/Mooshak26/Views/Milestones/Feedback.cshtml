@@ -3,7 +3,7 @@
     ViewBag.Title = "Feedback";
 }
 
-<h2>Feedback page for Milestone</h2>
+<h2>Feedback page for submitted solutions</h2>
 
 
 <table class="table">
@@ -12,17 +12,16 @@
             Input
         </th>
         <th>
-            Output
+            Expected Output
         </th>
         <th>
-            Right = 1 / Wrong = 0
+            User Output
         </th>
         <th>
-            Time submitted
+            Correct
         </th>
     </tr>
-    </table>
-    @*
+    
         @foreach (var item in Model)
         {
             <tr>
@@ -31,14 +30,16 @@
                     @Html.DisplayFor(modelItem => item.input)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.expectedOutput)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.output)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.timeSubmitted)
+                    @Html.DisplayFor(modelItem => item.correct)
                 </td>
             </tr>
         }
-
     </table>
     @Html.ActionLink("Go Back", "Index", new { controller = "Milestones", id = Model.ElementAt(0).milestoneID }, new { @class = "btn btn-default" })
-    *@
+    
