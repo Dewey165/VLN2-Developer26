@@ -94,5 +94,11 @@ namespace Mooshak26.Services
             _db.SaveChanges();
             return true;
         }
+
+        public List<SubmittedSolution> getResults(Milestone milestone)
+        {
+            return (_db.SubmittedSolutions.Where(x => x.milestoneID
+            == milestone.id).ToList());
+        }
     }
 }

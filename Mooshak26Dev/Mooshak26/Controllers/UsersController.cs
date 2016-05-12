@@ -176,10 +176,10 @@ namespace Mooshak26.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             User user = _service.GetUserDetails(id);
-      
+
             if (_service.DeleteUser(id))
             {
-                
+
                 //Delete the user from the AspNetUsers
                 var deleteUser = _service.getUser(user.userName);
                 await UserManager.DeleteAsync(deleteUser);
@@ -197,5 +197,7 @@ namespace Mooshak26.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
+    
 }
