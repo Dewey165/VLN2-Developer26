@@ -18,8 +18,7 @@ namespace Mooshak26.Controllers
     {
         private MilestoneService _service = new MilestoneService();
         private UserService _us = new UserService();
-        private SolutionServices _ss = new SolutionServices();
-        private Milestone milestoneCoding;
+        private SolutionService _ss = new SolutionService();
         // GET: Milestones
         public ActionResult Index(int id)
         {

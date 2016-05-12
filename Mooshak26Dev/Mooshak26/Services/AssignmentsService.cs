@@ -15,6 +15,12 @@ namespace Mooshak26.Services
         private ApplicationDbContext _db;
         private DeleteService _deleteService;
         private CourseService _courseService;
+        //For unit tests
+        private readonly IAppDataContext _mockDB;
+        public AssignmentService(IAppDataContext context)
+        {
+            _mockDB = context ?? new ApplicationDbContext();
+        }
 
         public AssignmentService()
         {
@@ -27,6 +33,7 @@ namespace Mooshak26.Services
                 .Where(x => x.courseID == courseID).ToList();
             return list;
         }
+        //Gets the role for the user for different views for teachers and students..
         public string GetRole()
         {
             var userName = HttpContext.Current.User.Identity.Name;
@@ -34,6 +41,7 @@ namespace Mooshak26.Services
               (x => x.userName == userName).role;
             return userRole;
         }
+        
         public Assignment GetAssignmentDetails(int id)
         {
            return _db.Assignments.Find(id);
@@ -60,10 +68,12 @@ namespace Mooshak26.Services
             _db.SaveChanges();
             return true;
         }
+        //This is left out because we didn't have time to implement it
         public void RateAssignment(int assignmentID)
         {
             //ToDo 
         }
+        //Get all course titles that user is associated with...
         public SelectList GetUsersCoursesTitles()
         {
             _courseService = new CourseService();
@@ -74,32 +84,9 @@ namespace Mooshak26.Services
  
             return list;
         }
-        
-        public AssignmentViewModel GetAssignmentByID(int assignmentID)
+        public Assignment TestGetAssignmentDetails(int id)
         {
-            //TODO
-            var assignment = _db.Assignments.SingleOrDefault(x => x.id == assignmentID);
-            if (assignment == null)
-            {
-                // kasta villu eða null
-            }
-
-            var milestones = _db.Milestones
-                .Where(x => x.assignmentID == assignmentID)
-                .Select(x => new AssignmentViewModel
-                {
-                    title = x.title
-                })
-                .ToList();
-
-            var viewModel = new AssignmentViewModel
-            {
-                title = assignment.title,
-                Milestones = milestones
-            };
-
-            return viewModel;
+            return _mockDB.Assignments.Find(id);
         }
-
     }
 }

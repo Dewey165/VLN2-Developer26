@@ -16,17 +16,25 @@ namespace Mooshak26.Services
     {
         private ApplicationDbContext _db;
         private AssignmentService _assignmentService;
+        //For unit tests
+        private readonly IAppDataContext _mockDB;
 
+        public MilestoneService(IAppDataContext context)
+        {
+            _mockDB = context ?? new ApplicationDbContext();
+        }
         public MilestoneService()
         {
             _db = new ApplicationDbContext();
         }
+        //Gets all milestones in assignment
         public List<Milestone> GetMilestonesByAssignmentID(int assignmentID)
         {
             var milestones = _db.Milestones
                 .Where(x => x.assignmentID == assignmentID).ToList();
             return milestones;
         }
+        //GetMilestone details for Student.
         public Milestone GetMilestoneDetails(int id)
         {
             return _db.Milestones.Find(id);
@@ -37,6 +45,7 @@ namespace Mooshak26.Services
             _db.SaveChanges();
             return true;
         }
+        //Helper function to get UserId..
         public int GetUserID()
         {
             var userName = HttpContext.Current.User.Identity.Name;
@@ -45,7 +54,7 @@ namespace Mooshak26.Services
 
             return userID;
         }
-
+        //Get role of user, Teacher or Student.
         public string GetRole()
         {
             var userName = HttpContext.Current.User.Identity.Name;
@@ -53,11 +62,12 @@ namespace Mooshak26.Services
               (x => x.userName == userName).role;
             return userRole;
         }
+        //Sometimes we need the CourseID. For example: "Go back" buttons..
         public int GetCourseIDByAssignmentID(int assignmentID)
         {
             return _db.Assignments.SingleOrDefault(x => x.id == assignmentID).courseID;
         }
-
+        //To easily pick an assignment when  doing something something daaark side...
         public SelectList GetUsersAssignmentTitles(int assignmentID)
         {
             var userId = GetUserID();
@@ -87,6 +97,7 @@ namespace Mooshak26.Services
             _db.SaveChanges();
             return true;
         }
+        //Returns mySolution with his list of submitted solutions
         public List<SubmittedSolution> mySolutions(int milestoneID)
         {
             //We get in the milestoneID and look
@@ -96,6 +107,7 @@ namespace Mooshak26.Services
                 .Where(x => x.userID == userID).ToList();
             return submittedSolution;
         }
+        //Feedback page info...
         public List<SubmittedSolution> Feedback(int milestoneID)
         {
             //We get in the milestoneID and look
@@ -108,12 +120,14 @@ namespace Mooshak26.Services
                 .Where(x => x.userID == userID).OrderByDescending(x => x.id).Take(count).ToList();
             return submittedSolution;
         }
+        //Get all inputs which the Teacher put in for milestone
         public List<string> GetInputs(int milestoneID)
         {
             return _db.Solutions
                 .Where(x => x.milestoneID == milestoneID)
                 .Select(x => x.input).ToList();
         }
+        //Get all output which the Teacher put in for milestone
         public List<string> GetOutputs(int milestoneID)
         {
             return _db.Solutions
@@ -122,7 +136,7 @@ namespace Mooshak26.Services
         }
         public void RunPythonProgram(Milestone milestone, string path)
         {
-        
+         //See below but didn't have time to implement...
         }
         /*
         public void RunPythonProgram(Milestone milestone, string path)
@@ -151,6 +165,13 @@ namespace Mooshak26.Services
             
         }   
         */
+        /// <summary>
+        /// Gets the file from the user and compiles it, 
+        /// Then runs it with inputs from teacher and gets
+        /// userOutputs, which are then inserted into database tables..
+        /// </summary>
+        /// <param name="milestone"></param>
+        /// <param name="path"></param>
         public void RunCPlusPlusProgram(Milestone milestone, string path)
         {
             //Get the inputs and correct outputs...
@@ -208,6 +229,7 @@ namespace Mooshak26.Services
             }
             saveSubmittedSolution(milestone, userOutputs);
         }
+        //Save the outputs the user got from the website
         public void saveSubmittedSolution(Milestone milestone, List<string> userOutputs)
         {
             int courseID = GetCourseIDByAssignmentID(milestone.assignmentID);
@@ -239,12 +261,19 @@ namespace Mooshak26.Services
                 _db.SaveChanges();
             }
         }
+        //Get the results of submitted Solutions..
         public List<SubmittedSolution> getResults(int id)
         {
             return (_db.SubmittedSolutions.Where(x => x.milestoneID
             == id).ToList());
         }
+
+        //UnitTest functions
+        public List<Milestone> TestGetMilestonesByAssignmentID(int assignmentID)
+        {
+            var milestones = _mockDB.Milestones
+                .Where(x => x.assignmentID == assignmentID).ToList();
+            return milestones;
+        }
     }
-
-
 }

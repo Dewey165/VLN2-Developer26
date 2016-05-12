@@ -16,6 +16,12 @@ namespace Mooshak26.Services
         private ApplicationDbContext _db;
         private CourseService _CourseService;
         private UserService _UserService;
+        //For unit tests
+        private readonly IAppDataContext _mockDB;
+        public LinkService(IAppDataContext context)
+        {
+            _mockDB = context ?? new ApplicationDbContext();
+        }
 
         public LinkService()
         {
@@ -23,22 +29,24 @@ namespace Mooshak26.Services
             _CourseService = new CourseService();
             _UserService = new UserService();
         }
+        //Gets Links to Courses...
         public List<Link> GetCoursesLinks(int courseID)
         {
             var list = _db.Links
                .Where(x => x.courseID == courseID).ToList();
             return list;
         }
+        //Gets all links for Admin
         public List<Link> GetLinks()
         {
             return _db.Links.ToList();
         }
-
+        //unused...
         public Link GetLinkDetails(int? id)
         {
             return _db.Links.Find(id);
         }
-              
+        //Creates links between course and user
         public Boolean CreateLink(Link newLink)
         {
             newLink.role = _UserService.GetRole(newLink.userID);
@@ -65,23 +73,24 @@ namespace Mooshak26.Services
             return true;
         }
         // Returns the Id for every link the user is connected to...
-        public List<int> userLinks(int userID)
+        public List<int> UserLinks(int userID)
         {
             var list = _db.Links
                 .Where(x => x.userID == userID)
                 .Select(x => x.id).ToList();
             return list;
         }
-
+        //This is to help Admin connnect users to courses..
+        //and select a course from a dropdownlist
         public SelectList GetAllCourseTitles()
         {
-            //List <Link> courses = GetLinks();
             var list = new SelectList(
                 _db.courses.ToList(),"id", "title");
 
                 return list;
         }
-
+        //This is to help Admin connnect users to courses..
+        // and select a username from a dropdownlist...
         public SelectList GetAllUsernames()
         {
             var list = new SelectList(
@@ -89,6 +98,18 @@ namespace Mooshak26.Services
                 .Where( x => !x.role.Contains("Admin"))
                 .ToList(), "id", "userName");
             return list;
+        }
+        ///
+        public List<int> TestUserLinks(int userID)
+        {
+            var list = _mockDB.Links
+                .Where(x => x.userID == userID)
+                .Select(x => x.id).ToList();
+            return list;
+        }
+        public List<Link> TestGetLinks()
+        {
+            return _mockDB.Links.ToList();
         }
     }
 }

@@ -15,6 +15,12 @@ namespace Mooshak26.Services
     {
         private ApplicationDbContext _db;
         private DeleteService _deleteService;
+        //For unit tests
+        private readonly IAppDataContext _mockDB;
+        public UserService(IAppDataContext context)
+        {
+            _mockDB = context ?? new ApplicationDbContext();
+        }
 
         public UserService()
         {
@@ -27,22 +33,24 @@ namespace Mooshak26.Services
         {
             return _db.MyUsers.ToList();
         }
+        //Find current logged in userName
         public string GetUserName()
         {
             return HttpContext.Current.User.Identity.Name;
         }
-
+        
         public User GetUserDetails(int? id)
         {
             return _db.MyUsers.Find(id);
         }
+        //Get the Role of the User with userID
         public string GetRole(int id)
         {
             var userRole = _db.MyUsers.SingleOrDefault
                 (x => x.id == id).role;
             return userRole;
         }
-
+        //Finds the userID by userName
         public int FindUserIDByUsername(string username)
         {
             var userID = _db.MyUsers.SingleOrDefault
@@ -66,12 +74,14 @@ namespace Mooshak26.Services
             _db.SaveChanges();
             return true;
         }
+
         public Boolean EditUser(User user)
         {
             _db.Entry(user).State = EntityState.Modified;
             _db.SaveChanges();
             return true;
         }
+        //Get the ApplicationUser by UserName..
         public ApplicationUser getUser(string userName)
         {
             return _db.Users.SingleOrDefault(x => x.UserName == userName);
@@ -94,7 +104,25 @@ namespace Mooshak26.Services
             _db.SaveChanges();
             return true;
         }
+        //Functions for unit tests...
+        public List<User> TestGetUsers()
+        {
+            return _mockDB.MyUsers.ToList();
+        }
 
-        
+        public string TestGetRole(int id)
+        {
+            var userRole = _mockDB.MyUsers.SingleOrDefault
+                (x => x.id == id).role;
+            return userRole;
+        }
+
+        public int TestFindUserIDByUsername(string username)
+        {
+            var userID = _mockDB.MyUsers.SingleOrDefault
+                (x => x.userName == username).id;
+            return userID;
+        }
+
     }
 }

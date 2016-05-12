@@ -8,50 +8,33 @@ using System.Web.Mvc;
 
 namespace Mooshak26.Services
 {
-    public class SolutionServices
+    public class SolutionService
     {
         private ApplicationDbContext _db;
         private AssignmentService assignService;
         private Solution solution;
+        //For unit tests
+        private readonly IAppDataContext _mockDB;
 
-        public SolutionServices()
+        public SolutionService(IAppDataContext context)
+        {
+            _mockDB = context ?? new ApplicationDbContext();
+        }
+
+        public SolutionService()
         {
             _db = new ApplicationDbContext();
             assignService = new AssignmentService();
             solution = new Solution();
         }
 
-        public SolutionServices(int courseID, int assignID, int solID)
-        {
-            _db = new ApplicationDbContext();
-            assignService = new AssignmentService();
-            solution = new Solution();
-            solution.assignmentID = assignID;
-            solution.courseID = courseID;
-            solution.Id = solID;
-        }
-
-        public string SolutionInputs()
-        {
-            //show input pane done in the viewModel
-            //receive the input from UI
-            
-            return null;
-        }
-        public string SolutionOutputs()
-        {
-            //show input pane
-            //receive the input from UI
-
-            return null;
-
-        }
         public bool CreateSolution(Solution sol)
         {
             _db.Solutions.Add(sol);
             _db.SaveChanges();
             return true;
         }
+        //Get info about milestone...
         public Solution GetSolutionCreationInfo(int milestoneID)
         {
             //getting milestone info...
@@ -63,29 +46,39 @@ namespace Mooshak26.Services
             newSolution.milestoneID = milestoneID;
             return newSolution;
         }
+        //Get all solutions...
         public List<Solution> GetAllSolutions(int milestoneID)
         {
             return (_db.Solutions
                 .Where
                 (x => x.milestoneID == milestoneID).ToList());
         }
+
         public Boolean EditSolution(Solution solution)
         {
             _db.Entry(solution).State = EntityState.Modified;
             _db.SaveChanges();
             return true;
         }
+
         public Solution GetSolutionDetails(int id)
         {
                 return (_db.Solutions.Find(id));
         }
+
         public bool DeleteSolution(Solution sol)
         {
             _db.Solutions.Remove(sol);
             _db.SaveChanges();
             return true;
         }
-
+        //Functions for unit tests....
+        public List<Solution> TestGetAllSolutions(int milestoneID)
+        {
+            return (_mockDB.Solutions
+                .Where
+                (x => x.milestoneID == milestoneID).ToList());
+        }
     }
 
 }

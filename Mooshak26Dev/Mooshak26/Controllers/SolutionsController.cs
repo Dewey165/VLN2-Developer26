@@ -14,7 +14,7 @@ namespace Mooshak26.Controllers
 {
     public class SolutionsController : Controller
     {
-        private SolutionServices _service = new SolutionServices();
+        private SolutionService _service = new SolutionService();
 
         // GET: Solutions
         public ActionResult Index(int id)

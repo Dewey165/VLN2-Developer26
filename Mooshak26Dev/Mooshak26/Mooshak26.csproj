@@ -228,7 +228,7 @@
     <Compile Include="Services\DeleteService.cs" />
     <Compile Include="Services\LinkService.cs" />
     <Compile Include="Services\MilestoneService.cs" />
-    <Compile Include="Services\SolutionServices.cs" />
+    <Compile Include="Services\SolutionService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
