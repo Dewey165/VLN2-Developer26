@@ -330,6 +330,7 @@
     <Content Include="Views\Home\AdminMainPage.cshtml" />
     <Content Include="Views\Milestones\TeachersIndex.cshtml" />
     <Content Include="Views\Milestones\Feedback.cshtml" />
+    <Content Include="Views\Milestones\ViewSolutionsOf.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Submissions\" />

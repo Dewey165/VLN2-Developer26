@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Mooshak26.Models.Entities.SubmittedSolution>
+@{
+    ViewBag.Title = "ViewSolutionsOf";
+}
+
+<h2>View Student's Solutions </h2>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            Student ID
+        </th>
+        <th>
+            Input
+        </th>
+        <th>
+            Expected Output
+        </th>
+        <th>
+            Student's Output
+        </th>
+        <th>
+            Correct
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.userID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.input)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.expectedOutput)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.output)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.correct)
+            </td>
+        </tr>
+    }
+</table>
+@Html.ActionLink("Go Back", "Index", new { controller = "Milestones", id = Model.ElementAt(0).milestoneID }, new { @class = "btn btn-default" })

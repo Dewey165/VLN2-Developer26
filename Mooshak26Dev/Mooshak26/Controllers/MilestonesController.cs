@@ -146,6 +146,12 @@ namespace Mooshak26.Controllers
             return RedirectToAction("TeachersIndex", new { id = assignmentID });
         }
 
+        public ActionResult ViewSolutionsOf(int id)
+        {
+            var result = _us.getResults(_service.GetMilestoneDetails(id));
+            return View(result);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

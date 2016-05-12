@@ -37,7 +37,7 @@
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.id }) |
-                    @Html.ActionLink("See Solutions", "Index", "Solutions" ,  new { id = item.id }, null) |
+                    @Html.ActionLink("See Students' Solutions", "ViewSolutionsOf",  new { id = item.id }) |
                     @Html.ActionLink("Create New Solution", "Create", "Solutions", new { id = item.id }, null) |
                     @Html.ActionLink("See Submissions", "Index", new { id = item.id }) 
                 </td>
