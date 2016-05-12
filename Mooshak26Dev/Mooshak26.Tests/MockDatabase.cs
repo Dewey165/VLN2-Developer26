@@ -20,7 +20,7 @@ namespace Mooshak26.Tests
         {
             // We're setting our DbSets to be InMemoryDbSets rather than using SQL Server.
             courses = new InMemoryDbSet<Course>();
-            Assignments = new InMemoryDbSet<Assignment>();
+            Assignments1 = new InMemoryDbSet<Assignment>();
             Solutions = new InMemoryDbSet<Solution>();
             MyUsers = new InMemoryDbSet<User>();
             Links = new InMemoryDbSet<Link>();
@@ -30,7 +30,7 @@ namespace Mooshak26.Tests
 
         public IDbSet<Course> courses { get; set; }
         public IDbSet<Milestone> Milestones { get; set; }
-        public IDbSet<Assignment> Assignments { get;  set; }
+        public IDbSet<Assignment> Assignments1 { get;  set; }
         public IDbSet<Solution> Solutions { get;  set; }
         public IDbSet<User> MyUsers { get;  set; }
         public IDbSet<Link> Links { get;  set; }

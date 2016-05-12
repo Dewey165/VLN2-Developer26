@@ -17,7 +17,7 @@ namespace Mooshak26.Services
         private readonly IAppDataContext _mockDB;
         public CourseService(IAppDataContext context)
         {
-            _mockDB = context ?? new ApplicationDbContext();
+            _mockDB = context ?? new ApplicationDbContextTest();
         }
 
         public CourseService()

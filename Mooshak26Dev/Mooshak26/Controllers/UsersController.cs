@@ -87,12 +87,13 @@ namespace Mooshak26.Controllers
                         Email = user.email
                     };
                     //Create the user in AspNetUsers and the role...
-                    var createNewUser = await UserManager.CreateAsync(newUser, "Abc123!");
+                    string password = _service.RandomPasswordGenerator();
+                    var createNewUser = await UserManager.CreateAsync(newUser, password);
                     if (createNewUser.Succeeded)
                     {
                         UserManager.AddToRole(newUser.Id, user.role);
                     }
-
+                    _service.SendPasswordInEmail(password, newUser.Email);
                 }
                 return RedirectToAction("Index");
             }

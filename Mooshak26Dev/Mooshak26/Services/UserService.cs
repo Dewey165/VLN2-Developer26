@@ -8,6 +8,8 @@ using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using System.Security.Principal;
 using System.Web;
+using System.Net.Mail;
+using System.Text;
 
 namespace Mooshak26.Services
 {
@@ -19,7 +21,7 @@ namespace Mooshak26.Services
         private readonly IAppDataContext _mockDB;
         public UserService(IAppDataContext context)
         {
-            _mockDB = context ?? new ApplicationDbContext();
+            _mockDB = context ?? new ApplicationDbContextTest();
         }
 
         public UserService()
@@ -103,6 +105,72 @@ namespace Mooshak26.Services
             //Finally save all the changes...
             _db.SaveChanges();
             return true;
+        }
+        //Sends a random password to the user just created...
+        public void SendPasswordInEmail(string password, string receiver)
+        {
+            string from = "bobbyjenkinsforreal@gmail.com";
+            string to = receiver;
+            string subject = "test";
+            string body = "This is a test123!" + "\n Password to login is: " + password;
+
+            MailMessage emailMessage = new MailMessage(from, to, subject, body);
+
+            // We use gmail to send, and therefore this information is necessary.
+            SmtpClient emailClient = new SmtpClient("smtp.gmail.com", 587);
+            emailClient.UseDefaultCredentials = true;
+            emailClient.EnableSsl = true;
+
+            // The email used to send the email and the password. 
+            // This must be hard-coded to the dummy email.
+            emailClient.Credentials = new System.Net.NetworkCredential("bobbyjenkinsforreal@gmail.com", "TheRealJenk");
+            emailClient.Send(emailMessage);
+        }
+        //Generate Random Password...
+        public string RandomPasswordGenerator()
+        {
+            const int numberOfCapitalLetters = 3;
+            const int numberOfSmallLetters = 3;
+            const int numberOfSpecialCharacters = 1;
+
+            const string capitalLetters = "QWERTYUIOPASDFGHJKLZXCVBNM";
+            const string smallLetters = "qwertyuiopasdfghjklzxcvbnm";
+            const string digits = "012345689";
+            const string specialChars = "$-+?_&=!%{}/";
+            
+            StringBuilder password = new StringBuilder();
+            for (int i = 1; i <= numberOfCapitalLetters; i++)
+            {
+                char capLetter = GenerateChar(capitalLetters);
+                InsertRandom(password, capLetter);
+            }
+            for (int i = 1; i <= numberOfSmallLetters; i++)
+            {
+                char smallLetter = GenerateChar(smallLetters);
+                InsertRandom(password, smallLetter);
+            }
+            char digit = GenerateChar(digits);
+            InsertRandom(password, digit);
+
+            for (int i = 1; i <= numberOfSpecialCharacters; i++)
+            {
+                char specialChar = GenerateChar(specialChars);
+                InsertRandom(password, specialChar);
+            }
+            return password.ToString();
+        }
+        private static void InsertRandom(StringBuilder password, char character)
+        {
+            Random rnd = new Random();
+            int randomPos = rnd.Next(password.Length + 1);
+            password.Insert(randomPos, character);
+        }
+        private static char GenerateChar(string usableChars)
+        {
+            Random rnd = new Random();
+            int randomStuff = rnd.Next(usableChars.Length);
+            char randomChar = usableChars[randomStuff];
+            return randomChar;
         }
         //Functions for unit tests...
         public List<User> TestGetUsers()

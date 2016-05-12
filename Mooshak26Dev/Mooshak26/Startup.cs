@@ -23,7 +23,9 @@ namespace Mooshak26
 
             // In startup we want to have 3 roles "Admin, Teacher and Student" and creating a default Admin
             // Tutorial here http://social.technet.microsoft.com/wiki/contents/articles/33229.asp-net-mvc-5-security-and-creating-user-role.aspx 
-
+           
+            /*Uncomment this is the Database is empty,
+             *  since it throws an error with the unit tests...
             if (!roleManager.RoleExists("Admin"))
             {
                 // first we create Admin rool  
@@ -61,6 +63,7 @@ namespace Mooshak26
                 role.Name = "Student";  
                 roleManager.Create(role);  
             }  
+            */
         }
     }
 }

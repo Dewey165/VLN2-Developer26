@@ -24,7 +24,7 @@ namespace Mooshak26.Models
 
     public interface IAppDataContext
     {
-        IDbSet<Assignment> Assignments { get; set; }
+        IDbSet<Assignment> Assignments1 { get; set; }
         IDbSet<Course> courses { get; set; }
         IDbSet<Link> Links { get; set; }
         IDbSet<Milestone> Milestones { get; set; }
@@ -39,7 +39,7 @@ namespace Mooshak26.Models
         int SaveChanges();
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IAppDataContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<Milestone> Milestones { get; set; }
@@ -48,17 +48,31 @@ namespace Mooshak26.Models
         public DbSet<User> MyUsers { get; set; }
         public DbSet<Link> Links { get; set; }
         public DbSet<SubmittedSolution> SubmittedSolutions { get; set; }
-        //For the unit tests
-        IDbSet<Assignment> IAppDataContext.Assignments { get; set; }
-        IDbSet <Milestone> IAppDataContext.Milestones { get; set; }
-        IDbSet <Solution> IAppDataContext.Solutions { get; set; }
-        IDbSet<Course> IAppDataContext.courses { get; set; }
-        IDbSet <User> IAppDataContext.MyUsers { get; set; }
-        IDbSet <Link> IAppDataContext.Links { get; set; }
-        IDbSet <SubmittedSolution> IAppDataContext.SubmittedSolutions { get; set; }
-       
+        //For the unit tests       
 
         public ApplicationDbContext()
+            : base("DefaultConnection", throwIfV1Schema: false)
+        {
+        }
+
+        public static ApplicationDbContext Create()
+        {
+            return new ApplicationDbContext();
+        }
+    }
+    public class ApplicationDbContextTest : IdentityDbContext<ApplicationUser>, IAppDataContext
+    {
+        //For the unit tests
+        IDbSet<Assignment> IAppDataContext.Assignments1 { get; set; }
+        IDbSet<Milestone> IAppDataContext.Milestones { get; set; }
+        IDbSet<Solution> IAppDataContext.Solutions { get; set; }
+        IDbSet<Course> IAppDataContext.courses { get; set; }
+        IDbSet<User> IAppDataContext.MyUsers { get; set; }
+        IDbSet<Link> IAppDataContext.Links { get; set; }
+        IDbSet<SubmittedSolution> IAppDataContext.SubmittedSolutions { get; set; }
+
+
+        public ApplicationDbContextTest()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }

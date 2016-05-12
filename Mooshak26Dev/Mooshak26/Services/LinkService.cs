@@ -20,7 +20,7 @@ namespace Mooshak26.Services
         private readonly IAppDataContext _mockDB;
         public LinkService(IAppDataContext context)
         {
-            _mockDB = context ?? new ApplicationDbContext();
+            _mockDB = context ?? new ApplicationDbContextTest();
         }
 
         public LinkService()

@@ -21,7 +21,7 @@ namespace Mooshak26.Services
 
         public MilestoneService(IAppDataContext context)
         {
-            _mockDB = context ?? new ApplicationDbContext();
+            _mockDB = context ?? new ApplicationDbContextTest();
         }
         public MilestoneService()
         {

@@ -18,7 +18,7 @@ namespace Mooshak26.Services
 
         public SolutionService(IAppDataContext context)
         {
-            _mockDB = context ?? new ApplicationDbContext();
+            _mockDB = context ?? new ApplicationDbContextTest();
         }
 
         public SolutionService()

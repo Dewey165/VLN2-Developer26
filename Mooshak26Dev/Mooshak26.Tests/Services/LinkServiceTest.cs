@@ -79,12 +79,8 @@ namespace Mooshak26.Tests.Services
         {
             //Arrange:
             const string title = "test1";
-            const int id1 = 1;
-            const int id2 = 2;
-            const int id3 = 3;
             const int courseID1 = 1;
-            const int courseID2 = 2;
-            const int courseID3 = 3;
+
 
             //Act:
             var result = _service.TestGetLinks();

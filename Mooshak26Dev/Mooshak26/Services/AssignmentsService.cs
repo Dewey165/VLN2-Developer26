@@ -19,7 +19,7 @@ namespace Mooshak26.Services
         private readonly IAppDataContext _mockDB;
         public AssignmentService(IAppDataContext context)
         {
-            _mockDB = context ?? new ApplicationDbContext();
+            _mockDB = context ?? new ApplicationDbContextTest();
         }
 
         public AssignmentService()
@@ -86,7 +86,7 @@ namespace Mooshak26.Services
         }
         public Assignment TestGetAssignmentDetails(int id)
         {
-            return _mockDB.Assignments.Find(id);
+            return _mockDB.Assignments1.Find(id);
         }
     }
 }
