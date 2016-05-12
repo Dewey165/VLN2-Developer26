@@ -571,3 +571,4 @@ C:\Users\Ágúst\Desktop\vln2\gitDev\VLN2-Developer26\Mooshak26Dev\Mooshak26\bin
 C:\Users\Ágúst\Desktop\vln2\gitDev\VLN2-Developer26\Mooshak26Dev\Mooshak26\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\Ágúst\Desktop\vln2\gitDev\VLN2-Developer26\Mooshak26Dev\Mooshak26\obj\Debug\Mooshak26.dll
 C:\Users\Ágúst\Desktop\vln2\gitDev\VLN2-Developer26\Mooshak26Dev\Mooshak26\obj\Debug\Mooshak26.pdb
+C:\Users\Ágúst\Desktop\vln2\gitDev\VLN2-Developer26\Mooshak26Dev\Mooshak26\obj\Debug\Mooshak26.csprojResolveAssemblyReference.cache
