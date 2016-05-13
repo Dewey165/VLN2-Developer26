@@ -93,7 +93,7 @@ namespace Mooshak26.Controllers
                     {
                         UserManager.AddToRole(newUser.Id, user.role);
                     }
-                    _service.SendPasswordInEmail(password, newUser.Email);
+                    _service.SendPasswordInEmail(password, newUser.Email, newUser.UserName);
                 }
                 return RedirectToAction("Index");
             }

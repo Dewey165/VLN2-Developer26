@@ -1,22 +1,25 @@
 #include <iostream>
 
-
 using namespace std;
 
-
 int main()
-
 {
-    
-int a,b;
+    int input;
 
-   cin >> a;
+    //cout << "Input n: ";
+    cin >> input;
 
-   cin >> b;
-
-   cout << a + b << endl;
  
- return 0;
+        if(input % 2 == 0)
+        {
+            cout << input << " is even" << endl;
+        }
+        else
+        {
+            cout << input << " is odd" << endl;
+        }
+       
+    
 
+    return 0;
 }
-

@@ -33,7 +33,7 @@
 }
 
 </table>
-if(model == null)
+@if(Model.ElementAt(0) != null)
 {
     @Html.ActionLink("Go Back", "Index", new { controller = "Milestones", id = Model.ElementAt(0).assignmentID }, new { @class = "btn btn-default" })
 }

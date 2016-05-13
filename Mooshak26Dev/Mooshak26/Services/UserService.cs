@@ -15,6 +15,7 @@ namespace Mooshak26.Services
 {
     public class UserService
     {
+        private static Random rnd = new Random();
         private ApplicationDbContext _db;
         private DeleteService _deleteService;
         //For unit tests
@@ -107,12 +108,14 @@ namespace Mooshak26.Services
             return true;
         }
         //Sends a random password to the user just created...
-        public void SendPasswordInEmail(string password, string receiver)
+        public void SendPasswordInEmail(string password, string receiver, string userName)
         {
             string from = "bobbyjenkinsforreal@gmail.com";
             string to = receiver;
-            string subject = "test";
-            string body = "This is a test123!" + "\n Password to login is: " + password;
+            string subject = "Mooshak26 Account Creation";
+            string body = "An account has been created for you on Mooshak26.\n" 
+                + "\n\nYour username is: " + userName +
+                "\n\n Password to login is: " + password;
 
             MailMessage emailMessage = new MailMessage(from, to, subject, body);
 
@@ -161,7 +164,7 @@ namespace Mooshak26.Services
         }
         private static void InsertRandom(StringBuilder password, char character)
         {
-            Random rnd = new Random();
+            
             int randomPos = rnd.Next(password.Length + 1);
             password.Insert(randomPos, character);
         }

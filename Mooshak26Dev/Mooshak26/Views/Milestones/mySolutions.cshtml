@@ -40,4 +40,11 @@
         </tr>
     }
 </table>
-@Html.ActionLink("Go Back", "Index", new { controller = "Milestones", id = Model.ElementAt(0).assignmentID }, new { @class = "btn btn-default" })
+@if (Model.ElementAt(0) != null)
+{
+    @Html.ActionLink("Go Back", "Index", new { controller = "Milestones", id = Model.ElementAt(0).assignmentID }, new { @class = "btn btn-default" })
+}
+else
+{
+    @Html.ActionLink("Go Back", "Index", new { controller = "Courses" }, new { @class = "btn btn-default" })
+}
