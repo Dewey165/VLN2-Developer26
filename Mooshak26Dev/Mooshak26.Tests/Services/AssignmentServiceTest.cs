@@ -27,7 +27,7 @@ namespace Mooshak26.Tests.Services
                 totalGrade = 10
 
             };
-            mockDB.Assignments1.Add(a1);
+            mockDB.Assignments.Add(a1);
             var a2 = new Assignment
             {
                 id = 2,
@@ -36,7 +36,7 @@ namespace Mooshak26.Tests.Services
                 description = "test2",
                 totalGrade = 9
             };
-            mockDB.Assignments1.Add(a2);
+            mockDB.Assignments.Add(a2);
 
             var a3 = new Assignment
             {
@@ -46,7 +46,7 @@ namespace Mooshak26.Tests.Services
                 description = "test3",
                 totalGrade = 8
             };
-            mockDB.Assignments1.Add(a3);
+            mockDB.Assignments.Add(a3);
             _service = new AssignmentService(mockDB);
         }
         //MockDb can't user .Find(id); so the test case is void

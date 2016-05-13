@@ -94,6 +94,7 @@ namespace Mooshak26.Services
         public bool EditCourse(Course course)
         {
             _db.Entry(course).State = EntityState.Modified;
+            //Todo change the link db...
             _db.SaveChanges();
             return true;
         }

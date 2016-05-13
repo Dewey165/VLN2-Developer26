@@ -56,6 +56,7 @@ namespace Mooshak26.Services
         public Boolean EditAssignment(Assignment assignment)
         {
             _db.Entry(assignment).State = EntityState.Modified;
+            var assignmentLinks = _db.Links.Where(x => x.courseID == assignment.id);
             _db.SaveChanges();
             return true;
         }
@@ -86,7 +87,7 @@ namespace Mooshak26.Services
         }
         public Assignment TestGetAssignmentDetails(int id)
         {
-            return _mockDB.Assignments1.Find(id);
+            return _mockDB.Assignments.Find(id);
         }
     }
 }

@@ -39,12 +39,12 @@
                     @Html.ActionLink("Delete", "Delete", new { id = item.id }) |
                     @Html.ActionLink("See Students Solutions", "ViewSolutionsOf",  new { id = item.id }) |
                     @Html.ActionLink("Create New Solution", "Create", "Solutions", new { id = item.id }, null) |
-                    @Html.ActionLink("See Submissions", "Index", new { id = item.id }) 
+                    @Html.ActionLink("See Submissions", "ViewSolutionsOf", new { id = item.id }) 
                 </td>
             </tr>
         }
 
     </table>
 
-   @Html.ActionLink("Go Back", "Index", new { controller = "Assignments", id = Model.ElementAt(0).assignmentID }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Go Back", "Index", new { controller = "Courses" }, new { @class = "btn btn-default" })
 </div>

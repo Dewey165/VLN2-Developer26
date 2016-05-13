@@ -103,6 +103,7 @@ namespace Mooshak26.Controllers
                     return RedirectToAction("TeachersIndex", new { id = milestone.assignmentID });
                 }
             }
+            ViewBag.Assignments = _service.GetUsersAssignmentTitles(milestone.assignmentID);
             return View(milestone);
         }
 

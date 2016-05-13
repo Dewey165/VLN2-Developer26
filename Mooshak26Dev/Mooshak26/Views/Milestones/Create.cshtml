@@ -12,7 +12,6 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Milestone</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -47,15 +46,12 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
+               @Html.ActionLink("Go Back", "Index", new { controller = "Courses"}, new { @class = "btn btn-default" })
+
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-    @Html.ActionLink("Go Back", "Index", new { controller = "Assignments", id = Model.assignmentID }, new { @class = "btn btn-default" })
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

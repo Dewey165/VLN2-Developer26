@@ -62,6 +62,8 @@ namespace Mooshak26.Controllers
                     return RedirectToAction("Index", new { id = assignment.courseID });
                 }
             }
+
+            ViewBag.Courses = _service.GetUsersCoursesTitles();
             return View(assignment);
         }
         
@@ -83,7 +85,7 @@ namespace Mooshak26.Controllers
             {
                 if(_service.EditAssignment(assignment))
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", new { id = assignment.courseID });
                 }
             }
             return View(assignment);
@@ -108,8 +110,15 @@ namespace Mooshak26.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            _service.DeleteAssignment(id);
-            return RedirectToAction("Index");
+            Assignment assignment = _service.GetAssignmentDetails(id);
+            if (ModelState.IsValid)
+            {
+                _service.DeleteAssignment(id);
+                return RedirectToAction("Index", new { id = assignment.courseID });
+            }
+            
+            
+            return View(assignment);
         }
 
         protected override void Dispose(bool disposing)
